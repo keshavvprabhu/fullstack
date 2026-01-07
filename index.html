@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="siteApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Keshav Prabhu - Product Management Professional</title>
+</head>
+<body>
+    <!-- Sidebar Drawer -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Keshav Prabhu</h2>
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Overlay for sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">Keshav Prabhu</div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+                <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Keshav Prabhu</h1>
+                <p class="title">Director - Product Management</p>
+                <p class="tagline">Driving Innovation Through Strategic Product Leadership</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/assets/image.jpg" alt="Keshav Prabhu" class="profile-image">
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About Me</h2>
+            <p class="section-intro">
+                Keshav Prabhu is a seasoned product management professional with over a decade of experience in leading cross-functional teams to deliver innovative solutions. He has a proven track record of driving product strategy, enhancing user experience, and achieving business goals.
+            </p>
+            <p class="section-intro" style="margin-top:1rem;">
+                In addition to product leadership, Keshav maintains a strong background in Software Testing and Automation — designing test strategies, building automated test suites (unit, integration, and end-to-end), and implementing CI/CD testing pipelines to ensure reliable releases. He combines hands-on technical skills with domain knowledge to reduce defects, accelerate delivery, and improve product quality through data-driven testing and risk-based approaches.
+            </p>
+        </div>
+    </section>
+
+    <section class="expertise-section">
+        <div class="container">
+            <h2>Core Competencies</h2>
+            <ul class="expertise-list">
+                <li><strong>Product Strategy</strong> - Defining vision and roadmap for market success</li>
+                <li><strong>Cross-functional Leadership</strong> - Aligning teams across engineering, design, and marketing</li>
+                <li><strong>User Experience</strong> - Driving innovation focused on user needs</li>
+                <li><strong>Business Goals</strong> - Delivering measurable results and revenue impact</li>
+                <li><strong>Software Testing &amp; Automation</strong> - Establishing test strategies, implementing automated test frameworks, and integrating testing into CI/CD to improve release quality and speed.</li>
+                <li><strong>Technical &amp; Domain Knowledge</strong> - Balanced expertise in system architecture, debugging, and domain-specific requirements to align technical solutions with business outcomes.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="certifications-section">
+        <div class="container">
+            <h2>Certifications & Credentials</h2>
+            <div class="certs-grid">
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>PMP</h3>
+                    <p>Project Management Professional</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Work Together?</h2>
+            <p>Let's discuss how I can help drive your product vision forward.</p>
+            <a href="contact.html" class="btn btn-large">Contact Me Today</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Keshav Prabhu. All rights reserved.</p>
+        </div>
+    </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <script src="/scripts.js"></script>
+    </body>
+    </html>

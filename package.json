@@ -1,0 +1,14 @@
+{
+  "name": "fullstack-site",
+  "version": "1.0.0",
+  "description": "Static personal site with TypeScript build for UI scripts",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/scripts.ts --bundle --minify --sourcemap --outfile=scripts.js",
+    "build:watch": "esbuild src/scripts.ts --bundle --sourcemap --outfile=scripts.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.18.0",
+    "typescript": "^4.9.0"
+  }
+}
