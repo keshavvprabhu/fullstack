@@ -1,2 +1,259 @@
-"use strict";(()=>{function g(t){return document.querySelector(t)}function h(){let t=g("#subsidiaryForm");if(!t)return;let o=g("#addSubsidiary"),n=g("#subsidiaryList"),i=g("#formMessage"),d=g("#subsidiaryDetailsSection"),l=[];function p(){let e=new FormData(t);return{immediateOriginId:String(e.get("immediateOriginId")||"").trim(),companyId:String(e.get("companyId")||"").trim(),onBehalf:String(e.get("onBehalf")||"self"),subsidiaryName:String(e.get("subsidiaryName")||"").trim(),address1:String(e.get("address1")||"").trim(),address2:String(e.get("address2")||"").trim(),city:String(e.get("city")||"").trim(),state:String(e.get("state")||"").trim(),postal:String(e.get("postal")||"").trim(),country:String(e.get("country")||"US")}}function c(e){if(!e.immediateOriginId||e.immediateOriginId.length>10)return"Immediate Origin ID is required (max 10 chars).";if(!e.companyId||e.companyId.length>10)return"Company ID is required (max 10 chars).";if(e.onBehalf==="other"){if(!e.subsidiaryName)return"Subsidiary Name is required.";if(!e.address1)return"Address Line 1 is required.";if(!e.city)return"City is required.";if(!e.state)return"State/Province is required.";if(!e.postal)return"Postal Code is required.";if(!e.country)return"Country is required."}return""}function y(e){if(e)for(;e.firstChild;)e.removeChild(e.firstChild)}function m(){if(!n)return;if(y(n),!l.length){let r=document.createElement("p");r.textContent="No subsidiaries added yet.",n.appendChild(r);return}let e=document.createElement("ul");e.className="expertise-list subsidiary-list",l.forEach(r=>{let a=document.createElement("li");a.className="subsidiary-item";let f=document.createElement("strong");f.textContent=r.subsidiaryName||"(no name)",a.appendChild(f);let M=document.createTextNode(" ("+(r.city||"")+", "+(r.state||"")+")");a.appendChild(M);let E=document.createElement("div");E.className="subsidiary-meta",E.textContent="Origin ID: "+r.immediateOriginId+"  Company ID: "+r.companyId,a.appendChild(E),e.appendChild(a)}),n.appendChild(e)}function u(){}function s(){try{if(!d||!t)return;let e=t.querySelector('select[name="onBehalf"]'),r=e?e.value:"self",a=d.querySelectorAll("input, select, textarea");r==="other"?(d.classList.remove("hidden"),a.forEach(f=>{f.disabled=!1})):(d.classList.add("hidden"),a.forEach(f=>{f.disabled=!0}))}catch(e){console.warn("updateSubsidiaryVisibility",e)}}o&&o.addEventListener("click",()=>{let e=p(),r=c(e);if(r){i&&(i.textContent=r);return}l.push(e),m(),i&&(i.textContent="Subsidiary added.",setTimeout(()=>{i&&(i.textContent="")},2500))},{passive:!0}),t&&t.addEventListener("submit",e=>{e.preventDefault();let r=p(),a=c(r);if(a){i&&(i.textContent=a);return}l.push(r),m(),i&&(i.textContent="Enrollment submitted. "+l.length+" subsidiaries included.")});let T=g('select[name="onBehalf"]');T&&T.addEventListener("change",()=>{s()},{passive:!0}),m(),s()}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",h,{once:!0,passive:!0}):h();function L(t){return document.querySelector(t)}function H(t){return document.querySelectorAll(t)}if(typeof angular<"u")try{angular.module("siteApp",[])}catch{}function S(){try{let t="__storage_test__";return localStorage.setItem(t,t),localStorage.removeItem(t),!0}catch{return!1}}function C(t="light"){try{return S()&&localStorage.getItem("theme")||t}catch{return t}}function I(t){try{if(!S())return;localStorage.setItem("theme",t)}catch{}}function v(){let t=L("#menuToggle"),o=L("#sidebarClose"),n=L("#sidebar"),i=L("#sidebarOverlay"),d=L("#themeToggle"),l=document.documentElement;function p(){n&&(n.classList.add("active"),i&&i.classList.add("active"),document.body.style.overflow="hidden")}function c(){n&&(n.classList.remove("active"),i&&i.classList.remove("active"),document.body.style.overflow="auto")}t&&t.addEventListener("click",u=>{u.stopPropagation(),n&&(n.classList.contains("active")?c():p())},{passive:!0}),document.addEventListener("click",u=>{try{if(!n||!n.classList.contains("active"))return;let s=u.target;if(!s||n.contains(s)||t&&t.contains(s))return;c()}catch{}},{passive:!0}),o&&o.addEventListener("click",c,{passive:!0}),i&&i.addEventListener("click",c,{passive:!0});let y=H(".sidebar-links a");y&&y.length&&y.forEach(u=>u.addEventListener("click",c,{passive:!0}));let m=C("light");l.setAttribute("data-theme",m),b(m,d),d&&d.addEventListener("click",()=>{let s=(l.getAttribute("data-theme")||"light")==="light"?"dark":"light";l.setAttribute("data-theme",s),I(s),b(s,d)},{passive:!0})}function b(t,o){if(!o)return;let n=o.querySelector("i");n&&(n.classList.remove("fa-moon","fa-sun"),t==="dark"?n.classList.add("fa-sun"):n.classList.add("fa-moon"))}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",v,{once:!0,passive:!0}):v();})();
+"use strict";
+(() => {
+  function g(t) {
+    return document.querySelector(t);
+  }
+  function h() {
+    let t = g("#subsidiaryForm");
+    if (!t) return;
+    let o = g("#addSubsidiary"),
+      n = g("#subsidiaryList"),
+      i = g("#formMessage"),
+      d = g("#subsidiaryDetailsSection"),
+      l = [];
+    function p() {
+      let e = new FormData(t);
+      return {
+        immediateOriginId: String(e.get("immediateOriginId") || "").trim(),
+        companyId: String(e.get("companyId") || "").trim(),
+        onBehalf: String(e.get("onBehalf") || "self"),
+        subsidiaryName: String(e.get("subsidiaryName") || "").trim(),
+        address1: String(e.get("address1") || "").trim(),
+        address2: String(e.get("address2") || "").trim(),
+        city: String(e.get("city") || "").trim(),
+        state: String(e.get("state") || "").trim(),
+        postal: String(e.get("postal") || "").trim(),
+        country: String(e.get("country") || "US"),
+      };
+    }
+    function c(e) {
+      if (!e.immediateOriginId || e.immediateOriginId.length > 10)
+        return "Immediate Origin ID is required (max 10 chars).";
+      if (!e.companyId || e.companyId.length > 10)
+        return "Company ID is required (max 10 chars).";
+      if (e.onBehalf === "other") {
+        if (!e.subsidiaryName) return "Subsidiary Name is required.";
+        if (!e.address1) return "Address Line 1 is required.";
+        if (!e.city) return "City is required.";
+        if (!e.state) return "State/Province is required.";
+        if (!e.postal) return "Postal Code is required.";
+        if (!e.country) return "Country is required.";
+      }
+      return "";
+    }
+    function y(e) {
+      if (e) for (; e.firstChild; ) e.removeChild(e.firstChild);
+    }
+    function m() {
+      if (!n) return;
+      if ((y(n), !l.length)) {
+        let r = document.createElement("p");
+        (r.textContent = "No subsidiaries added yet."), n.appendChild(r);
+        return;
+      }
+      let e = document.createElement("ul");
+      (e.className = "expertise-list subsidiary-list"),
+        l.forEach((r) => {
+          let a = document.createElement("li");
+          a.className = "subsidiary-item";
+          let f = document.createElement("strong");
+          (f.textContent = r.subsidiaryName || "(no name)"), a.appendChild(f);
+          let M = document.createTextNode(
+            " (" + (r.city || "") + ", " + (r.state || "") + ")"
+          );
+          a.appendChild(M);
+          let E = document.createElement("div");
+          (E.className = "subsidiary-meta"),
+            (E.textContent =
+              "Origin ID: " +
+              r.immediateOriginId +
+              "  Company ID: " +
+              r.companyId),
+            a.appendChild(E),
+            e.appendChild(a);
+        }),
+        n.appendChild(e);
+    }
+    function u() {}
+    function s() {
+      try {
+        if (!d || !t) return;
+        let e = t.querySelector('select[name="onBehalf"]'),
+          r = e ? e.value : "self",
+          a = d.querySelectorAll("input, select, textarea");
+        r === "other"
+          ? (d.classList.remove("hidden"),
+            a.forEach((f) => {
+              f.disabled = !1;
+            }))
+          : (d.classList.add("hidden"),
+            a.forEach((f) => {
+              f.disabled = !0;
+            }));
+      } catch (e) {
+        console.warn("updateSubsidiaryVisibility", e);
+      }
+    }
+    o &&
+      o.addEventListener(
+        "click",
+        () => {
+          let e = p(),
+            r = c(e);
+          if (r) {
+            i && (i.textContent = r);
+            return;
+          }
+          l.push(e),
+            m(),
+            i &&
+              ((i.textContent = "Subsidiary added."),
+              setTimeout(() => {
+                i && (i.textContent = "");
+              }, 2500));
+        },
+        { passive: !0 }
+      ),
+      t &&
+        t.addEventListener("submit", (e) => {
+          e.preventDefault();
+          let r = p(),
+            a = c(r);
+          if (a) {
+            i && (i.textContent = a);
+            return;
+          }
+          l.push(r),
+            m(),
+            i &&
+              (i.textContent =
+                "Enrollment submitted. " +
+                l.length +
+                " subsidiaries included.");
+        });
+    let T = g('select[name="onBehalf"]');
+    T &&
+      T.addEventListener(
+        "change",
+        () => {
+          s();
+        },
+        { passive: !0 }
+      ),
+      m(),
+      s();
+  }
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", h, {
+        once: !0,
+        passive: !0,
+      })
+    : h();
+  function L(t) {
+    return document.querySelector(t);
+  }
+  function H(t) {
+    return document.querySelectorAll(t);
+  }
+  if (typeof angular < "u")
+    try {
+      angular.module("siteApp", []);
+    } catch {}
+  function S() {
+    try {
+      let t = "__storage_test__";
+      return localStorage.setItem(t, t), localStorage.removeItem(t), !0;
+    } catch {
+      return !1;
+    }
+  }
+  function C(t = "light") {
+    try {
+      return (S() && localStorage.getItem("theme")) || t;
+    } catch {
+      return t;
+    }
+  }
+  function I(t) {
+    try {
+      if (!S()) return;
+      localStorage.setItem("theme", t);
+    } catch {}
+  }
+  function v() {
+    let t = L("#menuToggle"),
+      o = L("#sidebarClose"),
+      n = L("#sidebar"),
+      i = L("#sidebarOverlay"),
+      d = L("#themeToggle"),
+      l = document.documentElement;
+    function p() {
+      n &&
+        (n.classList.add("active"),
+        i && i.classList.add("active"),
+        (document.body.style.overflow = "hidden"));
+    }
+    function c() {
+      n &&
+        (n.classList.remove("active"),
+        i && i.classList.remove("active"),
+        (document.body.style.overflow = "auto"));
+    }
+    t &&
+      t.addEventListener(
+        "click",
+        (u) => {
+          u.stopPropagation(),
+            n && (n.classList.contains("active") ? c() : p());
+        },
+        { passive: !0 }
+      ),
+      document.addEventListener(
+        "click",
+        (u) => {
+          try {
+            if (!n || !n.classList.contains("active")) return;
+            let s = u.target;
+            if (!s || n.contains(s) || (t && t.contains(s))) return;
+            c();
+          } catch {}
+        },
+        { passive: !0 }
+      ),
+      o && o.addEventListener("click", c, { passive: !0 }),
+      i && i.addEventListener("click", c, { passive: !0 });
+    let y = H(".sidebar-links a");
+    y &&
+      y.length &&
+      y.forEach((u) => u.addEventListener("click", c, { passive: !0 }));
+    let m = C("light");
+    l.setAttribute("data-theme", m),
+      b(m, d),
+      d &&
+        d.addEventListener(
+          "click",
+          () => {
+            let s =
+              (l.getAttribute("data-theme") || "light") === "light"
+                ? "dark"
+                : "light";
+            l.setAttribute("data-theme", s), I(s), b(s, d);
+          },
+          { passive: !0 }
+        );
+  }
+  function b(t, o) {
+    if (!o) return;
+    let n = o.querySelector("i");
+    n &&
+      (n.classList.remove("fa-moon", "fa-sun"),
+      t === "dark" ? n.classList.add("fa-sun") : n.classList.add("fa-moon"));
+  }
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", v, {
+        once: !0,
+        passive: !0,
+      })
+    : v();
+})();
 //# sourceMappingURL=scripts.js.map
