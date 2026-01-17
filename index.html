@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="siteApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <title>Keshav Prabhu - Product Management Professional</title>
 </head>
+
 <body>
     <!-- Sidebar Drawer -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>Keshav Prabhu</h2>
+            <!-- <h2>Keshav Prabhu</h2> -->
+            <!-- <img src="./assets/KP_logo.png" alt="Keshav Prabhu Logo" style="width: 100px; height: 100px;"> Logo </img> -->
             <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
                 <i class="fas fa-times"></i>
             </button>
@@ -62,28 +65,171 @@
     <section id="about" class="about-section">
         <div class="container">
             <h2>About Me</h2>
+
             <p class="section-intro">
-                Keshav Prabhu is an experienced product management professional with over a decade of experience in leading cross-functional teams to deliver innovative solutions. He has a proven track record of driving product strategy, enhancing user experience, and achieving business goals within fast-paced environments. Keshav excels at bridging the gap between technical teams and business stakeholders, ensuring alignment and fostering collaboration to bring products from concept to market successfully.
+                Keshav Prabhu is an experienced product management professional with over a decade of experience in leading cross-functional teams to deliver innovative solutions. He excels at bridging the gap between technical teams and business stakeholders, ensuring alignment and fostering collaboration to bring products from concept to market successfully.
             </p>
-            <p class="section-intro" style="margin-top:1rem;">
-                In addition to product leadership, Keshav maintains a strong background in Software Testing and Automation — Designing test strategies, building automated test suites (unit, integration, and end-to-end), and implementing CI/CD testing pipelines to ensure reliable releases. He combines hands-on technical skills with domain knowledge to reduce defects, accelerate delivery, and improve product quality through data-driven testing and risk-based approaches. Keshav is passionate about leveraging technology to solve complex problems and deliver exceptional value to users and businesses alike. He holds a PMP certification, underscoring his commitment to excellence in project and product management. Keshav likes to keep updated with latest industry trends and continuously hones his skills to stay ahead in the ever-evolving tech landscape.
-            </p>
+
+            <div class="expertise-section intro-expertise">
+                <h3>Core Competencies</h3>
+                <ul class="expertise-list">
+                    <li><strong>Product Strategy</strong> - Defining vision and roadmap for market success</li>
+                    <li><strong>Cross-functional Leadership</strong> - Aligning teams across engineering, design, and other
+                        departments</li>
+                    <li><strong>User Experience</strong> - Driving innovation focused on user needs</li>
+                    <li><strong>Business Goals</strong> - Delivering measurable results and revenue impact</li>
+                    <li><strong>Software Testing &amp; Automation</strong> - Establishing test strategies, implementing
+                        automated test frameworks, and integrating testing into CI/CD to improve release quality and speed.
+                    </li>
+                    <li><strong>Technical &amp; Domain Knowledge</strong> - Balanced expertise in system architecture,
+                        debugging, and domain-specific requirements to align technical solutions with business outcomes.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tech-stack-grid">
+                <div class="tech-card">
+                    <h3>Programming Languages</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>Javascript</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Databases</h3>
+                    <ul>
+                        <li>Oracle</li>
+                        <li>SQL Server</li>
+                        <li>Cosmos DB</li>
+                        <li>SQLite</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Data Formats</h3>
+                    <ul>
+                        <li>XML</li>
+                        <li>JSON</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Test Frameworks</h3>
+                    <ul>
+                        <li>Playwright</li>
+                        <li>Robot Framework</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h3>Data Analysis &amp; Visualization</h3>
+                    <ul>
+                        <li>Tableau</li>
+                        <li>PowerBI</li>
+                        <li>Data Analysis</li>
+                        <li>Visualization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="domain-section">
+                <h3>Prior Domain Experience</h3>
+                <div class="domain-grid">
+                    <div class="domain-card">
+                        <div class="domain-logo-placeholder">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="domain-info">
+                            <h4>Banking and Financial Services</h4>
+                            <p>Core Banking</p>
+                            <span class="institution">(RBC and Citi)</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-logo-placeholder">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="domain-info">
+                            <h4>Wealth</h4>
+                            <p>Data as a Service</p>
+                            <span class="institution">TD Wealth</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-logo-placeholder">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="domain-info">
+                            <h4>Product Management</h4>
+                            <span class="institution">RBC</span>
+                        </div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-logo-placeholder">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="domain-info">
+                            <h4>Software Development & Testing</h4>
+                            <span class="institution">Cognizant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-section">
+                <h3>Professional Experience</h3>
+                <div class="timeline">
+                    <!-- RBC Director -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Director, Product Management</h4>
+                            <span class="timeline-company">RBC Capital Markets</span>
+                            <span class="timeline-date">Sep 2023 - Present</span>
+                            <p class="timeline-desc">Senior Manager, Process Optimization</p>
+                        </div>
+                    </div>
+                    <!-- Citi VP -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Vice President</h4>
+                            <span class="timeline-company">Citi</span>
+                            <span class="timeline-date">Jun 2022 - Sep 2023</span>
+                        </div>
+                    </div>
+                    <!-- TD QA Manager -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Quality Assurance Manager</h4>
+                            <span class="timeline-company">TD</span>
+                            <span class="timeline-date">Jan 2022 - Jun 2022</span>
+                        </div>
+                    </div>
+                    <!-- Cognizant -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Senior Quality Engineer</h4>
+                            <span class="timeline-company">Cognizant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="education-section">
+                <h3>Education</h3>
+                <div class="edu-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="edu-info">
+                        <h4>B.Tech Computer Science and Engineering</h4>
+                        <p>Cochin University of Science and Technology</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="expertise-section">
-        <div class="container">
-            <h2>Core Competencies</h2>
-            <ul class="expertise-list">
-                <li><strong>Product Strategy</strong> - Defining vision and roadmap for market success</li>
-                <li><strong>Cross-functional Leadership</strong> - Aligning teams across engineering, design, and other departments</li>
-                <li><strong>User Experience</strong> - Driving innovation focused on user needs</li>
-                <li><strong>Business Goals</strong> - Delivering measurable results and revenue impact</li>
-                <li><strong>Software Testing &amp; Automation</strong> - Establishing test strategies, implementing automated test frameworks, and integrating testing into CI/CD to improve release quality and speed.</li>
-                <li><strong>Technical &amp; Domain Knowledge</strong> - Balanced expertise in system architecture, debugging, and domain-specific requirements to align technical solutions with business outcomes.</li>
-            </ul>
-        </div>
-    </section>
 
     <section class="certifications-section">
         <div class="container">
@@ -91,6 +237,7 @@
             <div class="certs-grid">
                 <div class="cert-card">
                     <i class="fas fa-certificate"></i>
+                    <!--<iframe src="./assets/PMI Certification.pdf" width="100%" height="80%" style="border: none;"></iframe>-->
                     <h3>PMP</h3>
                     <p>Project Management Professional</p>
                 </div>
@@ -112,7 +259,8 @@
         </div>
     </footer>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-        <script src="./scripts.js"></script>
-    </body>
-    </html>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="./scripts.js"></script>
+</body>
+
+</html>
