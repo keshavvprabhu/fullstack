@@ -346,33 +346,51 @@ html[data-theme="dark"] .cta-section h2 {
 }
 
 .cert-card {
-  background: var(--color-secondary);
-  color: white;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
   padding: 2rem;
   border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+  text-align: left;
+  box-shadow: 0 2px 8px var(--color-border);
   transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
 .cert-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px var(--color-border);
+  border-color: var(--color-accent);
 }
 
-.cert-card i {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.cert-card h3 {
+.cert-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--color-bg);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  flex-shrink: 0;
 }
 
-.cert-card p {
+.cert-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-secondary);
+}
+
+html[data-theme="dark"] .cert-info h3 {
+  color: var(--color-text);
+}
+
+.cert-issuer {
   font-size: 0.95rem;
-  opacity: 0.95;
+  color: var(--color-text-light);
+  margin: 0;
 }
 
 /* CTA Section */
@@ -1163,6 +1181,17 @@ html[data-theme="dark"] .domain-info h4 {
 .timeline-section {
   padding: 2rem 0;
   position: relative;
+}
+
+.timeline-section h3 {
+  font-size: 2rem;
+  color: var(--color-secondary);
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+html[data-theme="dark"] .timeline-section h3 {
+  color: var(--color-accent);
 }
 
 .timeline {
