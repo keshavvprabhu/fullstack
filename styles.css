@@ -13,8 +13,8 @@
   --color-accent-dark: #45a049;
   --color-text: #333;
   --color-text-light: #555;
-  --color-bg: #f8f9fa;
-  --color-bg-white: white;
+  --color-bg: #f4f6f8; /* Softer gray for body to contrast with white cards */
+  --color-bg-white: #ffffff;
   --color-border: rgba(0, 0, 0, 0.05);
   --color-white: white;
 }
@@ -22,8 +22,8 @@
 html[data-theme="dark"] {
   --color-text: #e0e0e0;
   --color-text-light: #b0b0b0;
-  --color-bg: #1a1a1a;
-  --color-bg-white: #2a2a2a;
+  --color-bg: #121212; /* Deep background for dark mode */
+  --color-bg-white: #1e1e1e; /* Slightly lighter card bg for dark mode */
   --color-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -279,7 +279,7 @@ body {
 .cta-section h2 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: var(--color-secondary);
+  color: var(--color-accent);
   text-align: center;
 }
 
@@ -931,6 +931,15 @@ html[data-theme="dark"] .stats-section h2 {
   z-index: 998;
 }
 
+.social-intro {
+  margin-bottom: 2rem;
+  color: var(--color-text-light);
+}
+
+.social-links-left {
+  justify-content: flex-start;
+}
+
 .sidebar-overlay.active {
   opacity: 1;
   visibility: visible;
@@ -1055,16 +1064,16 @@ html[data-theme="dark"] .tech-card h3 {
   margin-bottom: 4rem;
 }
 
-.domain-section h3,
-.roles-section h3 {
+.domain-section h2,
+.roles-section h2 {
   font-size: 2rem;
   color: var(--color-secondary);
   margin-bottom: 2rem;
   text-align: center;
 }
 
-html[data-theme="dark"] .domain-section h3,
-html[data-theme="dark"] .roles-section h3 {
+html[data-theme="dark"] .domain-section h2,
+html[data-theme="dark"] .roles-section h2 {
   color: var(--color-accent);
 }
 
@@ -1106,13 +1115,13 @@ html[data-theme="dark"] .roles-section h3 {
   flex-shrink: 0;
 }
 
-.domain-info h4 {
-  font-size: 1.1rem;
+.domain-info h3 {
+  font-size: 1.2rem; /* Standardized Card Title Size */
   color: var(--color-secondary);
   margin-bottom: 0.3rem;
 }
 
-html[data-theme="dark"] .domain-info h4 {
+html[data-theme="dark"] .domain-info h3 {
   color: var(--color-text);
 }
 
@@ -1167,7 +1176,7 @@ html[data-theme="dark"] .domain-info h4 {
   margin-bottom: 3rem;
 }
 
-.about-section .expertise-section.intro-expertise h3 {
+.about-section .expertise-section.intro-expertise h2 {
   font-size: 2rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -1183,14 +1192,14 @@ html[data-theme="dark"] .domain-info h4 {
   position: relative;
 }
 
-.timeline-section h3 {
+.timeline-section h2 {
   font-size: 2rem;
   color: var(--color-secondary);
   margin-bottom: 3rem;
   text-align: center;
 }
 
-html[data-theme="dark"] .timeline-section h3 {
+html[data-theme="dark"] .timeline-section h2 {
   color: var(--color-accent);
 }
 
@@ -1261,13 +1270,13 @@ html[data-theme="dark"] .timeline-dot {
   border-color: var(--color-accent);
 }
 
-.timeline-content h4 {
+.timeline-content h3 {
   margin-bottom: 0.5rem;
   color: var(--color-secondary);
   font-size: 1.2rem;
 }
 
-html[data-theme="dark"] .timeline-content h4 {
+html[data-theme="dark"] .timeline-content h3 {
   color: var(--color-text);
 }
 
@@ -1292,65 +1301,44 @@ html[data-theme="dark"] .timeline-content h4 {
   color: var(--color-text);
 }
 
-/* Education Section */
-.education-section {
-  text-align: center;
-  margin-top: 4rem;
+/* Timeline Logo Styles */
+.timeline-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.education-section h3 {
-  font-size: 2rem;
-  color: var(--color-secondary);
-  margin-bottom: 2rem;
+.timeline-header-row > div:first-child {
+  flex: 1; /* Allow text to take up remaining space */
 }
 
-html[data-theme="dark"] .education-section h3 {
-  color: var(--color-accent);
+.logo-wrapper {
+  margin-left: 1rem;
+  flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
-.edu-card {
-  display: inline-flex;
-  align-items: center;
-  background: var(--color-bg-white);
-  padding: 2rem 3rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--color-border);
-  gap: 2rem;
-  transition: all 0.3s ease;
-  max-width: 800px;
+.company-logo {
+  max-width: 80px;
+  max-height: 35px; /* Consistent height for all logos */
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
-.edu-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border-color: var(--color-accent);
+/* Theme-based logo visibility */
+.logo-dark {
+  display: none;
 }
 
-.edu-card i {
-  font-size: 3rem;
-  color: var(--color-accent);
+html[data-theme="dark"] .logo-light {
+  display: none;
 }
 
-.edu-info {
-  text-align: left;
+html[data-theme="dark"] .logo-dark {
+  display: block;
 }
 
-.edu-info h4 {
-  font-size: 1.2rem;
-  color: var(--color-secondary);
-  margin-bottom: 0.5rem;
-}
-
-html[data-theme="dark"] .edu-info h4 {
-  color: var(--color-text);
-}
-
-.edu-info p {
-  font-size: 1rem;
-  color: var(--color-text-light);
-  margin: 0;
-}
 
 /* Thank You Page Styles */
 .thank-you-section {
@@ -1414,4 +1402,85 @@ html[data-theme="dark"] .thank-you-content h1 {
   font-size: 0.9rem;
   color: var(--color-text-light);
   margin-top: 2rem;
+}
+
+/* --- Unified Header Styling & Scroll Snap --- */
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+/* Page Section & Card Styling */
+.page-section {
+  scroll-snap-align: start;
+  scroll-padding-top: 80px;
+  padding: 3rem 0; /* Add vertical breathing room */
+}
+
+/* Card Container */
+.page-section .container {
+  background-color: var(--color-bg-white);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for the card itself - subtle lift */
+.page-section .container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Unified Header Colors */
+.about-section h2,
+.expertise-section h2, 
+.domain-section h2, 
+.roles-section h2,
+.tech-section h2,
+.timeline-section h2, 
+.education-section h2,
+.certifications-section h2,
+.cta-section h2 {
+  color: var(--color-secondary) !important;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+html[data-theme="dark"] .about-section h2,
+html[data-theme="dark"] .expertise-section h2, 
+html[data-theme="dark"] .domain-section h2, 
+html[data-theme="dark"] .roles-section h2,
+html[data-theme="dark"] .tech-section h2,
+html[data-theme="dark"] .timeline-section h2, 
+html[data-theme="dark"] .education-section h2,
+html[data-theme="dark"] .certifications-section h2,
+html[data-theme="dark"] .cta-section h2 {
+  color: var(--color-accent) !important;
+}
+
+.about-section .expertise-section.intro-expertise h2 {
+  color: var(--color-secondary) !important;
+  border-left: none;
+  padding-left: 0;
+}
+
+html[data-theme="dark"] .about-section .expertise-section.intro-expertise h2 {
+  color: var(--color-accent) !important;
+}
+
+/* CTA Text Visibility Fix */
+.cta-section .section-intro {
+  color: #555555 !important;
+}
+
+html[data-theme="dark"] .cta-section .section-intro {
+  color: var(--color-text-light) !important;
 }
