@@ -1,0 +1,26 @@
+[
+  {
+    "title": "LinkedIn Profile View",
+    "description": "A walkthrough of my LinkedIn professional profile, showcasing my experience, skills, and professional network.",
+    "date": "January 18, 2026",
+    "thumbnail": "./assets/videos/linkedin_profile_view.webp",
+    "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "topic": "Profile Walkthroughs"
+  },
+  {
+    "title": "Strategy & Prioritization Walkthrough",
+    "description": "A deep dive into product strategy, prioritization frameworks, and driving impactful outcomes.",
+    "date": "January 19, 2026",
+    "thumbnail": "https://img.youtube.com/vi/3JmPWUrpnS0/maxresdefault.jpg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=3JmPWUrpnS0",
+    "topic": "Product Strategy & Insights"
+  },
+  {
+    "title": "Technical Roadmap Session",
+    "description": "How to align technical debt, feature requests, and long-term vision into a cohesive product roadmap.",
+    "date": "January 20, 2026",
+    "thumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "topic": "Product Strategy & Insights"
+  }
+]

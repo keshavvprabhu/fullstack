@@ -1,0 +1,72 @@
+{
+  "product-strategy": {
+    "icon": "fa-chess",
+    "title": "Product Strategy",
+    "description": "Defining vision, roadmaps, and go-to-market strategies that capture market opportunities and drive sustainable growth.",
+    "capabilities": [
+      "Market research and competitive analysis",
+      "Product vision and roadmap development",
+      "Prioritization frameworks (RICE, MoSCoW, Value vs. Effort)",
+      "Go-to-market strategy and launch planning",
+      "Stakeholder alignment and executive presentations"
+    ]
+  },
+  "leadership": {
+    "icon": "fa-users",
+    "title": "Cross-functional Leadership",
+    "description": "Building and empowering high-performance teams across engineering, design, and business functions to deliver exceptional outcomes.",
+    "capabilities": [
+      "Team building and mentorship",
+      "Agile/Scrum methodology implementation",
+      "Stakeholder management and communication",
+      "Conflict resolution and decision-making",
+      "Fostering innovation and continuous improvement"
+    ]
+  },
+  "ux": {
+    "icon": "fa-lightbulb",
+    "title": "User Experience",
+    "description": "Championing user-centric design thinking to create intuitive, accessible, and delightful product experiences.",
+    "capabilities": [
+      "User research and persona development",
+      "Journey mapping and experience design",
+      "Usability testing and feedback integration",
+      "Accessibility compliance (WCAG)",
+      "Design system governance and consistency"
+    ]
+  },
+  "business": {
+    "icon": "fa-chart-line",
+    "title": "Business Goals",
+    "description": "Aligning product initiatives with business objectives to drive revenue growth, operational efficiency, and measurable ROI.",
+    "capabilities": [
+      "KPI definition and OKR frameworks",
+      "Revenue optimization and pricing strategy",
+      "Cost-benefit analysis and business cases",
+      "P&L ownership and budget management",
+      "Data-driven decision making and analytics"
+    ]
+  },
+  "testing": {
+    "icon": "fa-cogs",
+    "title": "Software Testing & Automation",
+    "description": "Establishing robust quality assurance practices and automation frameworks to accelerate delivery while maintaining excellence.",
+    "capabilities": [
+      "Test Strategy and Planning",
+      "Automation Framework Design (Robot Framework, Pytest, Playwright)",
+      "CI/CD Pipeline Integration (Jenkins, GitHub Actions)",
+      "Performance and Load Testing (Locust)",
+      "Quality Metrics and Defect Management"
+    ]
+  },
+  "technical": {
+    "icon": "fa-microchip",
+    "title": "Technical & Domain Knowledge",
+    "description": "Bridging the gap between complex technical systems and business outcomes with deep FinTech domain expertise.",
+    "capabilities": [
+      "API design and integration patterns",
+      "Database and data modeling concepts",
+      "Technical debt management and modernization"
+    ]
+  }
+}

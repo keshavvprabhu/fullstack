@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="siteApp">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -13,16 +13,18 @@
     <!-- Sidebar Drawer -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <!-- <h2>Keshav Prabhu</h2> -->
-            <!-- <img src="./assets/KP_logo.png" alt="Keshav Prabhu Logo" style="width: 100px; height: 100px;"> Logo </img> -->
-            <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+            <a href="index.html" class="sidebar-logo">
+                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu Logo" class="sidebar-logo-img">
+                <span class="sidebar-logo-text">Keshav Prabhu</span>
+            </a>
+            <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul class="sidebar-links">
             <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
-            <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
-            <li><a href="recordings.html"><i class="fas fa-video" aria-hidden="true"></i> Recordings</a></li>
+            <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+            <li><a href="videos.html"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
         </ul>
     </div>
@@ -32,17 +34,20 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="logo">Keshav Prabhu</div>
+            <a href="index.html" class="logo">
+                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu" class="logo-img">
+                <span>Keshav Prabhu</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
-                <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
-                <li><a href="recordings.html"><i class="fas fa-video" aria-hidden="true"></i> Recordings</a></li>
+                <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+                <li><a href="videos.html"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                 <i class="fas fa-moon"></i>
             </button>
         </div>
@@ -401,7 +406,6 @@
         </div>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="./scripts.js"></script>
 </body>
 

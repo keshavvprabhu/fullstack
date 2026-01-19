@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./styles.css">
-    <title>Contact - Keshav Prabhu</title>
+    <title>Videos - Keshav Prabhu</title>
 </head>
+
 <body>
     <!-- Sidebar Drawer -->
     <div class="sidebar" id="sidebar">
@@ -51,64 +53,29 @@
         </div>
     </nav>
 
-    <header class="hero hero-small">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Get In Touch</h1>
-                <p class="tagline">Let's discuss how we can collaborate and create great things together</p>
-            </div>
-        </div>
-    </header>
-
-    <section class="contact-section">
+    <main>
         <div class="container">
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <h2>Find me on Social Media</h2>
-                    <p class="social-intro">
-                        Connect with me to follow my work and professional updates.
-                    </p>
-                    <div class="social-links social-links-left">
-                        <a href="https://www.linkedin.com/in/keshav-prabhu" class="social-icon" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/keshavvprabhu" class="social-icon" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
+            <div class="page-header">
+                <h1>Videos</h1>
+                <p>Demo videos and screen recordings</p>
+            </div>
+
+            <section class="recordings-section page-section">
+                <div id="videosContainer">
+                    <!-- Dynamic content will be injected here -->
+                    <div class="loading-state">
+                        <i class="fas fa-spinner fa-spin"></i> Loading videos...
                     </div>
                 </div>
+            </section>
+        </div>
+    </main>
 
-                <form class="contact-form" action="https://formspree.io/f/xgovgbyq" method="POST">
-                    <input type="hidden" name="_subject" value="New Contact from Website!">
-                    <input type="text" name="_gotcha" class="hidden" title="Do not fill this field">
-                    <input type="hidden" name="_next" value="https://keshavprabhu.github.io/fullstack/index.html">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone Number (Optional) </label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject">Subject *</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-large">Send Message</button>
-                </form>
-            </div>
+    <section class="cta-section page-section about-section">
+        <div class="container">
+            <h2>Ready to Work Together?</h2>
+            <p class="section-intro">Let's discuss how I can help drive your product vision forward.</p>
+            <a href="contact.html" class="btn btn-large">Contact Me Today</a>
         </div>
     </section>
 
@@ -120,4 +87,5 @@
 
     <script src="./scripts.js"></script>
 </body>
+
 </html>
