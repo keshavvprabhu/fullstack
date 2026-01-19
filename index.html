@@ -22,6 +22,7 @@
         <ul class="sidebar-links">
             <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
             <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+            <li><a href="recordings.html"><i class="fas fa-video" aria-hidden="true"></i> Recordings</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
         </ul>
     </div>
@@ -38,6 +39,7 @@
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
                 <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+                <li><a href="recordings.html"><i class="fas fa-video" aria-hidden="true"></i> Recordings</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -72,15 +74,87 @@
 
             <div class="expertise-section intro-expertise">
                 <h2>Core Competencies</h2>
-                <ul class="expertise-list">
-                    <li><strong>Product Strategy</strong> - Crafting roadmaps that capture market share and define product vision</li>
-                    <li><strong>Cross-functional Leadership</strong> - Empowering high-performance teams to deliver faster across engineering and design</li>
-                    <li><strong>User Experience</strong> - Driving innovation focused on solving real user problems</li>
-                    <li><strong>Business Goals</strong> - Driving revenue growth and ROI through measurable results</li>
-                    <li><strong>Software Testing &amp; Automation</strong> - Establishing robust test strategies to accelerate release quality and speed</li>
-                    <li><strong>Technical &amp; Domain Knowledge</strong> - Aligning complex technical architectures with tangible business outcomes</li>
-                </ul>
+                <div class="competency-carousel-wrapper">
+                    <button type="button" class="carousel-nav carousel-prev" aria-label="Previous competency">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="competency-carousel">
+                        <div class="competency-card" data-competency="product-strategy">
+                            <div class="competency-icon">
+                                <i class="fas fa-chess"></i>
+                            </div>
+                            <h3>Product Strategy</h3>
+                            <p>Crafting roadmaps that capture market share</p>
+                            <span class="card-hint">Click to explore</span>
+                        </div>
+                        <div class="competency-card" data-competency="leadership">
+                            <div class="competency-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Cross-functional Leadership</h3>
+                            <p>Empowering high-performance teams</p>
+                            <span class="card-hint">Click to explore</span>
+                        </div>
+                        <div class="competency-card" data-competency="ux">
+                            <div class="competency-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3>User Experience</h3>
+                            <p>Driving innovation for real users</p>
+                            <span class="card-hint">Click to explore</span>
+                        </div>
+                        <div class="competency-card" data-competency="business">
+                            <div class="competency-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Business Goals</h3>
+                            <p>Driving revenue growth and ROI</p>
+                            <span class="card-hint">Click to explore</span>
+                        </div>
+                        <div class="competency-card" data-competency="testing">
+                            <div class="competency-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>Software Testing &amp; Automation</h3>
+                            <p>Accelerating release quality and speed</p>
+                            <span class="card-hint">Click to explore</span>
+                        </div>
+                        <div class="competency-card" data-competency="technical">
+                            <div class="competency-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <h3>Technical &amp; Domain Knowledge</h3>
+                            <p>Aligning architecture with outcomes</p>
+                            <span class="card-hint">Click to explore</span>
+                        </div>
+                    </div>
+                    <button type="button" class="carousel-nav carousel-next" aria-label="Next competency">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="carousel-indicators"></div>
             </div>
+
+            <!-- Competency Modal -->
+            <div class="competency-modal" id="competencyModal">
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <button type="button" class="modal-close" aria-label="Close modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-header">
+                        <div class="modal-icon">
+                            <i class="fas fa-chess"></i>
+                        </div>
+                        <h3 class="modal-title">Product Strategy</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-description"></p>
+                        <ul class="modal-capabilities"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
 
