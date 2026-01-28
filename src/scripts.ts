@@ -379,13 +379,16 @@ async function initModals() {
     
     if (!modalId) return;
 
-    const openHandler = () => openModal(modalId, siteData, modal);
+    const openHandler = (ev: Event) => {
+      ev.stopPropagation(); // Prevent document click handler from firing
+      openModal(modalId, siteData, modal);
+    };
     
     triggerEl.addEventListener("click", openHandler);
     triggerEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        openHandler();
+        openHandler(e);
       }
     });
 
