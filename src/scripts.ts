@@ -358,7 +358,7 @@ function updateThemeIcon(
 // ========================================
 
 async function initModals() {
-  const modal = safe("#competencyModal");
+  const modal = safe("#siteModal");
   if (!modal) return;
 
   let siteData: CompetencyMap = {};
@@ -445,7 +445,10 @@ function openModal(id: string, dataMap: CompetencyMap, modal: HTMLElement) {
   document.body.style.overflow = "hidden";
 
   const closeBtn = modal.querySelector<HTMLButtonElement>(".modal-close");
-  if (closeBtn) closeBtn.focus();
+  if (closeBtn) {
+    // preventScroll helps in some browsers to avoid jumping to the element
+    closeBtn.focus({ preventScroll: true });
+  }
 }
 
 async function initCompetencyCarousel() {
