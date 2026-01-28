@@ -1162,11 +1162,12 @@ html[data-theme="dark"] .roles-section h2 {
   gap: 1.5rem;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px var(--color-border);
+  cursor: pointer;
 }
 
 .domain-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 20px var(--color-border);
+  box-shadow: 0 8px 25px var(--color-border);
   border-color: var(--color-accent);
 }
 
@@ -1390,12 +1391,24 @@ html[data-theme="dark"] .timeline-content h3 {
 }
 
 .company-logo {
-  max-width: 80px;
-  max-height: 35px; /* Consistent height for all logos */
+  height: 40px; /* Enforce consistent height */
   width: auto;
-  height: auto;
   display: block;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.timeline-item {
+  cursor: pointer;
+}
+
+.timeline-item:hover .timeline-content {
+  background: var(--color-bg);
+  transform: translateX(5px);
+}
+
+.timeline-content {
+  transition: all 0.3s ease;
 }
 
 /* Theme-based logo visibility */

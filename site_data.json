@@ -1,0 +1,226 @@
+{
+  "product-strategy": {
+    "icon": "fa-chess",
+    "title": "Product Strategy",
+    "description": "Defining vision, roadmaps, and go-to-market strategies that capture market opportunities and drive sustainable growth.",
+    "capabilities": [
+      "Market research and competitive analysis",
+      "Product vision and roadmap development",
+      "Prioritization frameworks (RICE, MoSCoW, Value vs. Effort)",
+      "Go-to-market strategy and launch planning",
+      "Stakeholder alignment and executive presentations"
+    ]
+  },
+  "leadership": {
+    "icon": "fa-users",
+    "title": "Cross-functional Leadership",
+    "description": "Building and empowering high-performance teams across engineering, design, and business functions to deliver exceptional outcomes.",
+    "capabilities": [
+      "Team building and mentorship",
+      "Agile/Scrum methodology implementation",
+      "Stakeholder management and communication",
+      "Conflict resolution and decision-making",
+      "Fostering innovation and continuous improvement"
+    ]
+  },
+  "ux": {
+    "icon": "fa-lightbulb",
+    "title": "User Experience",
+    "description": "Championing user-centric design thinking to create intuitive, accessible, and delightful product experiences.",
+    "capabilities": [
+      "User research and persona development",
+      "Journey mapping and experience design",
+      "Usability testing and feedback integration",
+      "Accessibility compliance (WCAG)",
+      "Design system governance and consistency"
+    ]
+  },
+  "business": {
+    "icon": "fa-chart-line",
+    "title": "Business Goals",
+    "description": "Aligning product initiatives with business objectives to drive revenue growth, operational efficiency, and measurable ROI.",
+    "capabilities": [
+      "KPI definition and OKR frameworks",
+      "Revenue optimization and pricing strategy",
+      "Cost-benefit analysis and business cases",
+      "P&L ownership and budget management",
+      "Data-driven decision making and analytics"
+    ]
+  },
+  "testing": {
+    "icon": "fa-cogs",
+    "title": "Software Testing & Automation",
+    "description": "Establishing robust quality assurance practices and automation frameworks to accelerate delivery while maintaining excellence.",
+    "capabilities": [
+      "Test Strategy and Planning",
+      "Automation Framework Design (Robot Framework, Pytest, Playwright)",
+      "CI/CD Pipeline Integration (Jenkins, GitHub Actions)",
+      "Performance and Load Testing (Locust)",
+      "Quality Metrics and Defect Management"
+    ]
+  },
+  "technical": {
+    "icon": "fa-microchip",
+    "title": "Technical & Domain Knowledge",
+    "description": "Bridging the gap between complex technical systems and business outcomes with deep FinTech domain expertise.",
+    "capabilities": [
+      "API design and integration patterns",
+      "Database and data modeling concepts",
+      "Technical debt management and modernization"
+    ]
+  },
+  "cash-management": {
+    "icon": "fa-money-bill-wave",
+    "title": "Cash Management",
+    "description": "Expertise in managing and optimizing organizational liquidity, treasury operations, and transaction flows.",
+    "capabilities": [
+      "Treasury management solutions",
+      "Liquidity forecasting and optimization",
+      "Cash flow analysis and reporting",
+      "Bank relationship management"
+    ]
+  },
+  "core-banking": {
+    "icon": "fa-university",
+    "title": "Core Banking Products",
+    "description": "Deep understanding of fundamental banking systems, deposit accounts, and term assets.",
+    "capabilities": [
+      "DDA (Demand Deposit Accounts) management",
+      "TDA (Term Deposit Accounts) and savings products",
+      "Interest calculation and posting engines",
+      "Regulatory reporting for retail banking"
+    ]
+  },
+  "payments": {
+    "icon": "fa-credit-card",
+    "title": "Payments",
+    "description": "Specialized in the architecture and delivery of modern transaction processing systems.",
+    "capabilities": [
+      "Cross-border and domestic payment rails",
+      "Tokenization and secure payment processing",
+      "ISO 20022 messaging standards",
+      "Fraud detection and mitigation"
+    ]
+  },
+  "collateral-management": {
+    "icon": "fa-balance-scale",
+    "title": "Collateral Management",
+    "description": "Optimizing asset utilization and ensuring compliance in trading and credit operations.",
+    "capabilities": [
+      "Asset optimization and substitution",
+      "Margin call automation and management",
+      "Regulatory compliance (EMIR, Dodd-Frank)",
+      "Risk mitigation and inventory tracking"
+    ]
+  },
+  "counterparty-risk": {
+    "icon": "fa-user-shield",
+    "title": "Counterparty Risk",
+    "description": "Managing trading credit risk and ensuring organizational stability in financial markets.",
+    "capabilities": [
+      "Exposure monitoring and limit management",
+      "Credit risk scoring and assessment",
+      "Default scenario modeling",
+      "Reporting and stakeholder dashboards"
+    ]
+  },
+  "securities-data": {
+    "icon": "fa-database",
+    "title": "Securities Data",
+    "description": "Mastery of reference data management for complex financial instruments.",
+    "capabilities": [
+      "Instrument master data management",
+      "Pricing data feeds and integration",
+      "Corporate actions processing",
+      "Data quality and governance"
+    ]
+  },
+  "software-dev": {
+    "icon": "fa-code",
+    "title": "Software Development",
+    "description": "Technical foundation built on engineering excellence and robust architectural principles.",
+    "capabilities": [
+      "Full-stack development experience",
+      "System architecture and design",
+      "Cloud-native application development",
+      "DevOps mindset and tooling"
+    ]
+  },
+  "software-testing": {
+    "icon": "fa-vial",
+    "title": "Software Testing",
+    "description": "Championing Quality Engineering to ensure reliable and high-performance product delivery.",
+    "capabilities": [
+      "Automated testing frameworks",
+      "Performance and security testing",
+      "Quality metrics and analytics",
+      "Shift-left testing strategies"
+    ]
+  },
+  "scrum-master": {
+    "icon": "fa-users-cog",
+    "title": "Scrum Master",
+    "description": "Facilitating Agile delivery and empowering teams to reach peak performance.",
+    "capabilities": [
+      "Agile ceremony facilitation",
+      "Team coaching and mentorship",
+      "Roadblock removal and flow optimization",
+      "Servant leadership"
+    ]
+  },
+  "product-management": {
+    "icon": "fa-briefcase",
+    "title": "Product Management",
+    "description": "Strategic leadership in product discovery, delivery, and lifecycle management.",
+    "capabilities": [
+      "Strategic vision and execution",
+      "Customer discovery and insights",
+      "Prioritization and stakeholder alignment",
+      "Outcome-driven product roadmaps"
+    ]
+  },
+  "rbc-director": {
+    "icon": "fa-building",
+    "title": "Director, Product Management",
+    "description": "Leading product strategy and delivery at RBC Capital Markets, focusing on process optimization and enterprise solutions.",
+    "capabilities": [
+      "Product vision for capital markets solutions",
+      "Process optimization and digitization",
+      "Cross-functional team leadership",
+      "Executive stakeholder management"
+    ]
+  },
+  "citi-vp": {
+    "icon": "fa-landmark",
+    "title": "Vice President",
+    "description": "Led key product initiatives at Citi, focusing on transaction processing and treasury solutions.",
+    "capabilities": [
+      "Treasury solution management",
+      "Global platform modernization",
+      "Regulatory compliance technical delivery",
+      "Team performance management"
+    ]
+  },
+  "td-practice-lead": {
+    "icon": "fa-check-circle",
+    "title": "Practice Lead I",
+    "description": "Championed Quality Engineering and practice standards at TD, driving excellence across multiple product lines.",
+    "capabilities": [
+      "Quality Engineering strategy and governance",
+      "Automation COE leadership",
+      "Strategic planning and resource optimization",
+      "Mentorship of practice members"
+    ]
+  },
+  "cognizant-sqe": {
+    "icon": "fa-shield-halved",
+    "title": "Senior Quality Engineer",
+    "description": "Delivered high-quality software solutions for global financial clients at Cognizant.",
+    "capabilities": [
+      "Lead QA engineer for complex fintech projects",
+      "Automation framework architecture",
+      "Performance testing and analysis",
+      "Stakeholder communication"
+    ]
+  }
+}

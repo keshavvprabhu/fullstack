@@ -178,6 +178,9 @@ function initUI(): void {
   // Apply configuration from config.json
   applyConfiguration();
 
+  // Initialize modals
+  initModals();
+
   // Initialize videos if we are on videos.html
   initVideosPage();
 
@@ -354,27 +357,102 @@ function updateThemeIcon(
 // Competency Carousel & Modal Functionality
 // ========================================
 
+async function initModals() {
+  const modal = safe("#competencyModal");
+  if (!modal) return;
+
+  let siteData: CompetencyMap = {};
+  try {
+    const response = await fetch("./site_data.json");
+    if (response.ok) {
+      siteData = await response.json();
+    }
+  } catch (error) {
+    console.error("Failed to load site data:", error);
+  }
+
+  const triggers = document.querySelectorAll("[data-modal-id], [data-competency]");
+  
+  triggers.forEach((trigger) => {
+    const triggerEl = trigger as HTMLElement;
+    const modalId = triggerEl.dataset.modalId || triggerEl.dataset.competency;
+    
+    if (!modalId) return;
+
+    const openHandler = () => openModal(modalId, siteData, modal);
+    
+    triggerEl.addEventListener("click", openHandler);
+    triggerEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openHandler();
+      }
+    });
+
+    // Ensure it's interactive
+    if (!triggerEl.getAttribute("tabindex")) {
+      triggerEl.setAttribute("tabindex", "0");
+    }
+    if (!triggerEl.getAttribute("role")) {
+      triggerEl.setAttribute("role", "button");
+    }
+  });
+
+  // Close logic
+  const closeBtn = modal.querySelector(".modal-close");
+  const overlay = modal.querySelector(".modal-overlay");
+
+  function closeModal() {
+    modal!.classList.remove("active");
+    document.body.style.overflow = "auto";
+    // Optional: return focus to last trigger if tracked
+  }
+
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  if (overlay) overlay.addEventListener("click", closeModal);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeModal();
+    }
+  });
+}
+
+function openModal(id: string, dataMap: CompetencyMap, modal: HTMLElement) {
+  const data = dataMap[id];
+  if (!data) return;
+
+  const modalIcon = modal.querySelector(".modal-icon i");
+  const modalTitle = modal.querySelector(".modal-title");
+  const modalDesc = modal.querySelector(".modal-description");
+  const modalCaps = modal.querySelector(".modal-capabilities");
+
+  if (modalIcon) modalIcon.className = "fas " + data.icon;
+  if (modalTitle) modalTitle.textContent = data.title;
+  if (modalDesc) modalDesc.textContent = data.description;
+  if (modalCaps) {
+    modalCaps.innerHTML = "";
+    data.capabilities.forEach((cap) => {
+      const li = document.createElement("li");
+      li.textContent = cap;
+      modalCaps.appendChild(li);
+    });
+  }
+
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+
+  const closeBtn = modal.querySelector<HTMLButtonElement>(".modal-close");
+  if (closeBtn) closeBtn.focus();
+}
+
 async function initCompetencyCarousel() {
   const carousel = safe(".competency-carousel");
   const prevBtn = safe<HTMLButtonElement>(".carousel-prev");
   const nextBtn = safe<HTMLButtonElement>(".carousel-next");
   const indicatorsContainer = safe(".carousel-indicators");
   const cards = safeAll<HTMLElement>(".competency-card");
-  const modal = safe("#competencyModal");
 
   if (!carousel || !cards.length) return;
-
-  // Load competency data from external JSON
-  let competencyData: CompetencyMap = {};
-  try {
-    const response = await fetch("./competencies.json");
-    if (response.ok) {
-      competencyData = await response.json();
-    }
-  } catch (error) {
-    console.error("Failed to load competency data:", error);
-    // Data won't be available, modal won't show content properly
-  }
 
   // Create indicators
   cards.forEach((_, index) => {
@@ -456,88 +534,6 @@ async function initCompetencyCarousel() {
   // Update indicators on scroll
   carousel.addEventListener("scroll", updateIndicators, { passive: true });
   updateIndicators();
-
-  // Card click - open modal
-  cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const competencyKey = card.dataset.competency;
-      if (competencyKey) openModal(competencyKey);
-    });
-
-    // Keyboard accessibility
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("role", "button");
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        const competencyKey = card.dataset.competency;
-        if (competencyKey) openModal(competencyKey);
-      }
-    });
-  });
-
-  // Modal functionality
-  function openModal(competencyKey: string) {
-    const data = competencyData[competencyKey];
-    if (!data || !modal) return;
-
-    // Update modal content
-    const modalIcon = modal.querySelector(".modal-icon i");
-    const modalTitle = modal.querySelector(".modal-title");
-    const modalDesc = modal.querySelector(".modal-description");
-    const modalCaps = modal.querySelector(".modal-capabilities");
-
-    if (modalIcon) {
-      modalIcon.className = "fas " + data.icon;
-    }
-    if (modalTitle) {
-      modalTitle.textContent = data.title;
-    }
-    if (modalDesc) {
-      modalDesc.textContent = data.description;
-    }
-    if (modalCaps) {
-      modalCaps.innerHTML = "";
-      data.capabilities.forEach((cap) => {
-        const li = document.createElement("li");
-        li.textContent = cap;
-        modalCaps.appendChild(li);
-      });
-    }
-
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
-
-    // Focus trap
-    const closeBtn = modal.querySelector<HTMLButtonElement>(".modal-close");
-    if (closeBtn) {
-      closeBtn.focus();
-    }
-  }
-
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove("active");
-    document.body.style.overflow = "auto";
-  }
-
-  // Close modal events
-  const closeBtn = modal ? modal.querySelector(".modal-close") : null;
-  const overlay = modal ? modal.querySelector(".modal-overlay") : null;
-
-  if (closeBtn) {
-    closeBtn.addEventListener("click", closeModal);
-  }
-  if (overlay) {
-    overlay.addEventListener("click", closeModal);
-  }
-
-  // Close on Escape key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal && modal.classList.contains("active")) {
-      closeModal();
-    }
-  });
 }
 
 // Run initialization on DOM ready
