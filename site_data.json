@@ -53,10 +53,10 @@
     "description": "Establishing robust quality assurance practices and automation frameworks to accelerate delivery while maintaining excellence.",
     "capabilities": [
       "Test Strategy and Planning",
-      "Automation Framework Design (Robot Framework, Pytest, Playwright)",
+      "Automation Framework Design (Robot Framework, Pytest, Playwright, Python)",
       "CI/CD Pipeline Integration (Jenkins, GitHub Actions)",
       "Performance and Load Testing (Locust)",
-      "Quality Metrics and Defect Management"
+      "Quality Metrics Reporting and Defect Management"
     ]
   },
   "technical": {
@@ -64,9 +64,9 @@
     "title": "Technical & Domain Knowledge",
     "description": "Bridging the gap between complex technical systems and business outcomes with deep FinTech domain expertise.",
     "capabilities": [
-      "API design and integration patterns",
-      "Database and data modeling concepts",
-      "Technical debt management and modernization"
+      "API Design and Integration Patterns",
+      "Database and Data Modeling Concepts",
+      "Technical Debt Management and Modernization"
     ]
   },
   "cash-management": {
@@ -74,10 +74,10 @@
     "title": "Cash Management",
     "description": "Expertise in managing and optimizing organizational liquidity, treasury operations, and transaction flows.",
     "capabilities": [
-      "Treasury management solutions",
-      "Liquidity forecasting and optimization",
-      "Cash flow analysis and reporting",
-      "Bank relationship management"
+      "Treasury Management Solutions",
+      "Liquidity Forecasting and Optimization",
+      "Cash Flow Analysis and Reporting",
+      "Bank Relationship Management"
     ]
   },
   "core-banking": {
@@ -85,10 +85,10 @@
     "title": "Core Banking Products",
     "description": "Deep understanding of fundamental banking systems, deposit accounts, and term assets.",
     "capabilities": [
-      "DDA (Demand Deposit Accounts) management",
-      "TDA (Term Deposit Accounts) and savings products",
-      "Interest calculation and posting engines",
-      "Regulatory reporting for retail banking"
+      "DDA (Demand Deposit Accounts) Management",
+      "TDA (Term Deposit Accounts) and Savings Products",
+      "Interest Calculation and Posting Engines",
+      "Regulatory Reporting for Retail Banking"
     ]
   },
   "payments": {
@@ -96,10 +96,10 @@
     "title": "Payments",
     "description": "Specialized in the architecture and delivery of modern transaction processing systems.",
     "capabilities": [
-      "Cross-border and domestic payment rails",
-      "Tokenization and secure payment processing",
-      "ISO 20022 messaging standards",
-      "Fraud detection and mitigation"
+      "Cross-border and Domestic Payment Rails",
+      "Tokenization and Secure Payment Processing",
+      "ISO 20022 Messaging Standards",
+      "Fraud Detection and Mitigation"
     ]
   },
   "collateral-management": {
@@ -107,10 +107,10 @@
     "title": "Collateral Management",
     "description": "Optimizing asset utilization and ensuring compliance in trading and credit operations.",
     "capabilities": [
-      "Asset optimization and substitution",
-      "Margin call automation and management",
-      "Regulatory compliance (EMIR, Dodd-Frank)",
-      "Risk mitigation and inventory tracking"
+      "Asset Optimization and Substitution",
+      "Margin Call Automation and Management",
+      "Regulatory Compliance (EMIR, Dodd-Frank)",
+      "Risk Mitigation and Inventory Tracking"
     ]
   },
   "counterparty-risk": {
@@ -118,10 +118,10 @@
     "title": "Counterparty Risk",
     "description": "Managing trading credit risk and ensuring organizational stability in financial markets.",
     "capabilities": [
-      "Exposure monitoring and limit management",
-      "Credit risk scoring and assessment",
-      "Default scenario modeling",
-      "Reporting and stakeholder dashboards"
+      "Exposure Monitoring and Limit Management",
+      "Credit Risk Scoring and Assessment",
+      "Default Scenario Modeling",
+      "Reporting and Stakeholder Dashboards"
     ]
   },
   "securities-data": {
@@ -129,10 +129,10 @@
     "title": "Securities Data",
     "description": "Mastery of reference data management for complex financial instruments.",
     "capabilities": [
-      "Instrument master data management",
-      "Pricing data feeds and integration",
-      "Corporate actions processing",
-      "Data quality and governance"
+      "Instrument Master Data Management",
+      "Pricing Data Feeds and Integration",
+      "Corporate Actions Processing",
+      "Data Quality and Governance"
     ]
   },
   "software-dev": {
@@ -140,10 +140,10 @@
     "title": "Software Development",
     "description": "Technical foundation built on engineering excellence and robust architectural principles.",
     "capabilities": [
-      "Full-stack development experience",
-      "System architecture and design",
-      "Cloud-native application development",
-      "DevOps mindset and tooling"
+      "Full-Stack Development Experience",
+      "System Architecture and Design",
+      "Cloud-Native Application Development",
+      "DevOps Mindset and Tooling"
     ]
   },
   "software-testing": {
@@ -151,10 +151,10 @@
     "title": "Software Testing",
     "description": "Championing Quality Engineering to ensure reliable and high-performance product delivery.",
     "capabilities": [
-      "Automated testing frameworks",
-      "Performance and security testing",
-      "Quality metrics and analytics",
-      "Shift-left testing strategies"
+      "Automated Testing Frameworks",
+      "Functionality, Acceptance, and Regression Testing",
+      "Quality Metrics and Analytics",
+      "Shift-Left Test Strategies - Inspections, Reviews, and BDD"
     ]
   },
   "scrum-master": {
@@ -162,10 +162,10 @@
     "title": "Scrum Master",
     "description": "Facilitating Agile delivery and empowering teams to reach peak performance.",
     "capabilities": [
-      "Agile ceremony facilitation",
-      "Team coaching and mentorship",
-      "Roadblock removal and flow optimization",
-      "Servant leadership"
+      "Agile Ceremony Facilitation",
+      "Team Coaching and Mentorship",
+      "Roadblock Removal and Flow Optimization",
+      "Servant Leadership"
     ]
   },
   "product-management": {
@@ -173,10 +173,10 @@
     "title": "Product Management",
     "description": "Strategic leadership in product discovery, delivery, and lifecycle management.",
     "capabilities": [
-      "Strategic vision and execution",
-      "Customer discovery and insights",
-      "Prioritization and stakeholder alignment",
-      "Outcome-driven product roadmaps"
+      "Strategic Vision and Execution",
+      "Customer Discovery and Insights",
+      "Prioritization and Stakeholder Alignment",
+      "Outcome-Driven Product Roadmaps"
     ]
   },
   "rbc-director": {
@@ -184,10 +184,10 @@
     "title": "Director, Product Management",
     "description": "Leading product strategy and delivery at RBC Capital Markets, focusing on process optimization and enterprise solutions.",
     "capabilities": [
-      "Product vision for capital markets solutions",
-      "Process optimization and digitization",
-      "Cross-functional team leadership",
-      "Executive stakeholder management"
+      "Product Vision for Capital Markets Solutions",
+      "Process Optimization and Digitization",
+      "Cross-Functional Team Leadership",
+      "Executive Stakeholder Management"
     ]
   },
   "citi-vp": {
@@ -195,10 +195,11 @@
     "title": "Vice President",
     "description": "Led key product initiatives at Citi, focusing on transaction processing and treasury solutions.",
     "capabilities": [
-      "Treasury solution management",
-      "Global platform modernization",
-      "Regulatory compliance technical delivery",
-      "Team performance management"
+      "Technical Delivery Oversight for NAM (US)",
+      "Platform Modernization",
+      "Regulatory Compliance Technical Delivery",
+      "Team Performance Management",
+      "Technical Demands and Release Management"
     ]
   },
   "td-practice-lead": {
@@ -217,10 +218,10 @@
     "title": "Senior Quality Engineer",
     "description": "Delivered high-quality software solutions for global financial clients at Cognizant.",
     "capabilities": [
-      "Lead QA engineer for complex fintech projects",
-      "Automation framework architecture",
-      "Performance testing and analysis",
-      "Stakeholder communication"
+      "Lead QA Engineer for Complex Fintech Projects",
+      "Automation Framework Architecture",
+      "Functionalities and Acceptance Testing",
+      "Progress Reporting and Stakeholder Communication"
     ]
   }
 }
