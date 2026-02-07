@@ -223,5 +223,49 @@
       "Functionalities and Acceptance Testing",
       "Progress Reporting and Stakeholder Communication"
     ]
+  },
+  "programming-languages": {
+    "icon": "fa-code",
+    "title": "Programming Languages",
+    "description": "Proficiency in modern programming languages for backend, frontend, and automation development.",
+    "capabilities": ["Python", "Java", "JavaScript & TypeScript", "SQL"]
+  },
+  "databases": {
+    "icon": "fa-database",
+    "title": "Databases",
+    "description": "Experience with relational and non-relational database management systems.",
+    "capabilities": [
+      "PostgreSQL", "SQL Server", "SQLite",
+      "Cosmos", "MongoDB",
+      "Redis"
+    ]
+  },
+  "tools-devops": {
+    "icon": "fa-tools",
+    "title": "Tools & DevOps",
+    "description": "Proficiency with essential development tools and cloud-native technologies.",
+    "capabilities": [
+      "AWS & Azure Cloud Services",
+      "Docker & Kubernetes",
+      "CI/CD (Jenkins, GitHub Actions)",
+      "Agile Tools (Jira, Confluence)",
+      "Version Control (Git)"
+    ]
+  },
+  "frameworks-libs": {
+    "icon": "fa-cubes",
+    "title": "Frameworks & Libraries",
+    "description": "Experience with modern web and automation frameworks to accelerate delivery.",
+    "capabilities": [
+      "Node.js & Express (Backend)",
+      "Robot Framework","Pytest",
+      "Playwright", "Locust"
+    ]
+  },
+  "operating-systems": {
+    "icon": "fa-laptop-code",
+    "title": "Operating Systems",
+    "description": "Experience working across different operating systems for development and deployment.",
+    "capabilities": ["Windows", "Linux"]
   }
 }
