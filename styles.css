@@ -2074,6 +2074,9 @@ html[data-theme="dark"] .modal-title {
 
 .card-info {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .card-info h3 {
@@ -2085,7 +2088,8 @@ html[data-theme="dark"] .modal-title {
 .card-date {
   font-size: 0.85rem;
   color: var(--color-text-light);
-  margin-top: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
