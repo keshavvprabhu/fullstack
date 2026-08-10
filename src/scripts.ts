@@ -296,32 +296,39 @@ function createCard(item: GridItem, cardClass: string): HTMLElement {
   return card;
 }
 
+const EMBEDDED_CONFIG: ConfigData = {
+  showVideos: false,
+  showArticles: true
+};
+
 async function applyConfiguration() {
+  let config: ConfigData = { ...EMBEDDED_CONFIG };
   try {
     const response = await fetch("./config.json");
-    if (!response.ok) return;
-
-    const config: ConfigData = await response.json();
-
-    if (config.showVideos === false) {
-      const videoLinks = document.querySelectorAll('a[href="videos.html"]');
-      videoLinks.forEach((link) => {
-        const li = link.closest("li");
-        if (li) li.style.display = "none";
-        else (link as HTMLElement).style.display = "none";
-      });
-    }
-
-    if (config.showArticles === false) {
-      const articleLinks = document.querySelectorAll('a[href="articles.html"]');
-      articleLinks.forEach((link) => {
-        const li = link.closest("li");
-        if (li) li.style.display = "none";
-        else (link as HTMLElement).style.display = "none";
-      });
+    if (response.ok) {
+      const fetched = await response.json();
+      config = { ...config, ...fetched };
     }
   } catch (error) {
-    console.error("Failed to apply configuration:", error);
+    // Use embedded fallback if fetch fails
+  }
+
+  if (config.showVideos === false) {
+    const videoLinks = document.querySelectorAll('a[href="videos.html"]');
+    videoLinks.forEach((link) => {
+      const li = link.closest("li");
+      if (li) li.style.display = "none";
+      else (link as HTMLElement).style.display = "none";
+    });
+  }
+
+  if (config.showArticles === false) {
+    const articleLinks = document.querySelectorAll('a[href="articles.html"]');
+    articleLinks.forEach((link) => {
+      const li = link.closest("li");
+      if (li) li.style.display = "none";
+      else (link as HTMLElement).style.display = "none";
+    });
   }
 }
 

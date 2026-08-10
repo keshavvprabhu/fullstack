@@ -276,27 +276,35 @@
     return card;
   }
 
+  const EMBEDDED_CONFIG = {
+    showVideos: false,
+    showArticles: true
+  };
+
   async function applyConfiguration() {
+    let config = Object.assign({}, EMBEDDED_CONFIG);
     try {
       const res = await fetch("./config.json");
-      if (!res.ok) return;
-      const config = await res.json();
-      if (config.showVideos === false) {
-        document.querySelectorAll('a[href="videos.html"]').forEach(link => {
-          const li = link.closest("li");
-          if (li) li.style.display = "none";
-          else link.style.display = "none";
-        });
-      }
-      if (config.showArticles === false) {
-        document.querySelectorAll('a[href="articles.html"]').forEach(link => {
-          const li = link.closest("li");
-          if (li) li.style.display = "none";
-          else link.style.display = "none";
-        });
+      if (res.ok) {
+        const fetched = await res.json();
+        config = Object.assign({}, config, fetched);
       }
     } catch (err) {
-      console.error("Failed to apply configuration:", err);
+      // Use embedded config fallback
+    }
+    if (config.showVideos === false) {
+      document.querySelectorAll('a[href="videos.html"]').forEach(link => {
+        const li = link.closest("li");
+        if (li) li.style.display = "none";
+        else link.style.display = "none";
+      });
+    }
+    if (config.showArticles === false) {
+      document.querySelectorAll('a[href="articles.html"]').forEach(link => {
+        const li = link.closest("li");
+        if (li) li.style.display = "none";
+        else link.style.display = "none";
+      });
     }
   }
 

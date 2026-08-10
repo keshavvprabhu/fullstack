@@ -215,6 +215,12 @@ html[data-theme="dark"] .navbar {
   width: 100%;
 }
 
+/* Hide Videos Page Link */
+a[href="videos.html"],
+li:has(> a[href="videos.html"]) {
+  display: none !important;
+}
+
 /* Theme Toggle Button */
 .theme-toggle {
   background: rgba(255, 255, 255, 0.15);
