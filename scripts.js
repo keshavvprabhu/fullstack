@@ -101,27 +101,112 @@
     init3DTilt();
   }
 
+  const EMBEDDED_VIDEOS = [
+    {
+      "title": "LinkedIn Profile View",
+      "description": "A walkthrough of my LinkedIn professional profile, showcasing my experience, skills, and professional network.",
+      "date": "January 18, 2026",
+      "thumbnail": "./assets/videos/linkedin_profile_view.webp",
+      "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "topic": "Profile Walkthroughs"
+    },
+    {
+      "title": "Strategy & Prioritization Walkthrough",
+      "description": "A deep dive into product strategy, prioritization frameworks, and driving impactful outcomes.",
+      "date": "January 19, 2026",
+      "thumbnail": "https://img.youtube.com/vi/3JmPWUrpnS0/maxresdefault.jpg",
+      "youtubeUrl": "https://www.youtube.com/watch?v=3JmPWUrpnS0",
+      "topic": "Product Strategy & Insights"
+    },
+    {
+      "title": "Technical Roadmap Session",
+      "description": "How to align technical debt, feature requests, and long-term vision into a cohesive product roadmap.",
+      "date": "January 20, 2026",
+      "thumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+      "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "topic": "Product Strategy & Insights"
+    }
+  ];
+
+  const EMBEDDED_ARTICLES = [
+    {
+      "title": "Wickets to Widgets",
+      "description": "Wickets to Widgets - Similarities between Cricket and Software Industry",
+      "date": "2026-01-15",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*oThTsM0q-ri1SLrQ6TOi_A.jpeg",
+      "link": "https://medium.com/@keshavvprabhu/wickets-to-widgets-cricket-to-software-industry-69188dffbfff",
+      "topic": "Wickets to Widgets"
+    },
+    {
+      "title": "Learn Fast, Learn Well",
+      "description": "How to learn something really fast.",
+      "date": "2026-01-20",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:786/format:webp/1*gnLozTVKrxn5fAlm7YwSjA.png",
+      "link": "https://medium.com/@keshavvprabhu/how-to-learn-something-really-fast-fb39f0f0420a",
+      "topic": "Learn Fast, Learn Well"
+    },
+    {
+      "title": "Virtual Accounts — Why they matter?",
+      "description": "A brief overview of Virtual Accounts and how they help in Cash Management.",
+      "date": "2026-02-01",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*wwbqvQOCqygF4FRkiEbYew.jpeg",
+      "link": "https://medium.com/@keshavvprabhu/understanding-virtual-accounts-68d8759e8f83",
+      "topic": "Virtual Accounts"
+    },
+    {
+      "title": "Smart Contracts - A brief overview",
+      "description": "A brief overview of Smart Contracts and how they help in Cash Management.",
+      "date": "2026-02-01",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*2wCCgzQaC9ubtEDMqdExbw.jpeg",
+      "link": "https://medium.com/@keshavvprabhu/smart-contracts-what-is-it-and-why-it-matters-f04e702f3549",
+      "topic": "Smart Contracts"
+    },
+    {
+      "title": "Let's (not) take it offline",
+      "description": "How to Prevent “Let’s Take It Offline” From Killing Momentum or Accountability",
+      "date": "2026-02-15",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*vECPysuGyBYaCMY_Ny9ODA.jpeg",
+      "link": "https://medium.com/@keshavvprabhu/how-to-prevent-lets-take-it-offline-from-killing-momentum-or-accountability-dea0a607005f",
+      "topic": "Let's (not) take it offline"
+    },
+    {
+      "title": "Driving Effective Meetings",
+      "description": "Driving Effective Meetings — A scripted approach",
+      "date": "2026-02-15",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*-DgFbEmJdCbe6eAbYgZWuA.jpeg",
+      "link": "https://medium.com/@keshavvprabhu/driving-effective-meetings-a-scripted-approach-b3462e95659a",
+      "topic": "Driving Effective Meetings"
+    },
+    {
+      "title": "SWIFT MT to MX Quick Reference",
+      "description": "SWIFT MT to MX Quick Reference",
+      "date": "2026-06-08",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*mdDv03n2LJRjmMr4qhvKag.jpeg",
+      "link": "https://medium.com/@keshavvprabhu/mt-to-mx-quick-reference-6243a0437ce3",
+      "topic": "SWIFT MT to MX Quick Reference"
+    }
+  ];
+
   async function initVideosPage() {
     const container = safe("#videosContainer");
     if (!container) return;
+    let videos = EMBEDDED_VIDEOS;
     try {
       const res = await fetch("./videos.json");
-      if (!res.ok) throw new Error("Failed to fetch videos");
-      const videos = await res.json();
-      const items = videos.map(v => ({
-        title: v.title,
-        description: v.description,
-        date: v.date,
-        thumbnail: v.thumbnail,
-        topic: v.topic,
-        url: v.youtubeUrl,
-        showPlayIcon: true
-      }));
-      renderGrid(items, container, { gridClass: "grid-layout video-grid", cardClass: "content-card", groupByTopic: true });
+      if (res.ok) videos = await res.json();
     } catch (err) {
-      console.error("Error loading videos:", err);
-      container.innerHTML = '<p class="error-message">Failed to load videos. Please try again later.</p>';
+      // Use embedded videos fallback
     }
+    const items = videos.map(v => ({
+      title: v.title,
+      description: v.description,
+      date: v.date,
+      thumbnail: v.thumbnail,
+      topic: v.topic,
+      url: v.youtubeUrl,
+      showPlayIcon: true
+    }));
+    renderGrid(items, container, { gridClass: "grid-layout video-grid", cardClass: "content-card", groupByTopic: true });
   }
 
   function renderGrid(items, container, options) {
@@ -218,23 +303,22 @@
   async function initArticlesPage() {
     const container = safe("#articlesContainer");
     if (!container) return;
+    let articles = EMBEDDED_ARTICLES;
     try {
       const res = await fetch("./articles.json");
-      if (!res.ok) throw new Error("Failed to fetch articles");
-      const articles = await res.json();
-      const items = articles.map(a => ({
-        title: a.title,
-        description: a.description,
-        date: a.date,
-        thumbnail: a.thumbnail,
-        topic: a.topic,
-        url: a.link
-      }));
-      renderGrid(items, container, { gridClass: "grid-layout articles-grid", cardClass: "content-card" });
+      if (res.ok) articles = await res.json();
     } catch (err) {
-      console.error("Error loading articles:", err);
-      container.innerHTML = '<p class="error-message">Failed to load articles. Please try again later.</p>';
+      // Use embedded articles fallback
     }
+    const items = articles.map(a => ({
+      title: a.title,
+      description: a.description,
+      date: a.date,
+      thumbnail: a.thumbnail,
+      topic: a.topic,
+      url: a.link
+    }));
+    renderGrid(items, container, { gridClass: "grid-layout articles-grid", cardClass: "content-card" });
   }
 
   function updateThemeIcon(theme, button) {
@@ -246,15 +330,246 @@
     else icon.classList.add("fa-moon");
   }
 
+  const EMBEDDED_SITE_DATA = {
+    "product-strategy": {
+      "icon": "fa-chess",
+      "title": "Product Strategy",
+      "description": "Defining vision, roadmaps, and go-to-market strategies that capture market opportunities and drive sustainable growth.",
+      "capabilities": [
+        "Market research and competitive analysis",
+        "Product vision and roadmap development",
+        "Prioritization frameworks (RICE, MoSCoW, Value vs. Effort)",
+        "Go-to-market strategy and launch planning",
+        "Stakeholder alignment and executive presentations"
+      ]
+    },
+    "leadership": {
+      "icon": "fa-users",
+      "title": "Cross-functional Leadership",
+      "description": "Building and empowering high-performance teams across engineering, design, and business functions to deliver exceptional outcomes.",
+      "capabilities": [
+        "Team building and mentorship",
+        "Agile/Scrum methodology implementation",
+        "Stakeholder management and communication",
+        "Conflict resolution and decision-making",
+        "Fostering innovation and continuous improvement"
+      ]
+    },
+    "ux": {
+      "icon": "fa-lightbulb",
+      "title": "User Experience",
+      "description": "Championing user-centric design thinking to create intuitive, accessible, and delightful product experiences.",
+      "capabilities": [
+        "User research and persona development",
+        "Journey mapping and experience design",
+        "Usability testing and feedback integration",
+        "Accessibility compliance (WCAG)",
+        "Design system governance and consistency"
+      ]
+    },
+    "business": {
+      "icon": "fa-chart-line",
+      "title": "Business Goals",
+      "description": "Aligning product initiatives with business objectives to drive revenue growth, operational efficiency, and measurable ROI.",
+      "capabilities": [
+        "KPI definition and OKR frameworks",
+        "Revenue optimization and pricing strategy",
+        "Cost-benefit analysis and business cases",
+        "P&L ownership and budget management",
+        "Data-driven decision making and analytics"
+      ]
+    },
+    "testing": {
+      "icon": "fa-cogs",
+      "title": "Software Testing & Automation",
+      "description": "Establishing robust quality assurance practices and automation frameworks to accelerate delivery while maintaining excellence.",
+      "capabilities": [
+        "Test Strategy and Planning",
+        "Automation Framework Design (Robot Framework, Pytest, Playwright, Python)",
+        "CI/CD Pipeline Integration (Jenkins, GitHub Actions)",
+        "Performance and Load Testing (Locust)",
+        "Quality Metrics Reporting and Defect Management"
+      ]
+    },
+    "technical": {
+      "icon": "fa-microchip",
+      "title": "Technical & Domain Knowledge",
+      "description": "Bridging the gap between complex technical systems and business outcomes with deep FinTech domain expertise.",
+      "capabilities": [
+        "API Design and Integration Patterns",
+        "Database and Data Modeling Concepts",
+        "Technical Debt Management and Modernization"
+      ]
+    },
+    "cash-management": {
+      "icon": "fa-money-bill-wave",
+      "title": "Cash Management",
+      "description": "Expertise in managing and optimizing organizational liquidity, treasury operations, and transaction flows.",
+      "capabilities": [
+        "Treasury Management Solutions",
+        "Liquidity Forecasting and Optimization",
+        "Cash Flow Analysis and Reporting",
+        "Bank Relationship Management"
+      ]
+    },
+    "core-banking": {
+      "icon": "fa-university",
+      "title": "Core Banking Products",
+      "description": "Deep understanding of fundamental banking systems, deposit accounts, and term assets.",
+      "capabilities": [
+        "DDA (Demand Deposit Accounts) Management",
+        "TDA (Term Deposit Accounts) and Savings Products",
+        "Interest Calculation and Posting Engines",
+        "Regulatory Reporting for Retail Banking"
+      ]
+    },
+    "payments": {
+      "icon": "fa-credit-card",
+      "title": "Payments",
+      "description": "Specialized in the architecture and delivery of modern transaction processing systems.",
+      "capabilities": [
+        "Cross-border and Domestic Payment Rails",
+        "Tokenization and Secure Payment Processing",
+        "ISO 20022 Messaging Standards",
+        "Fraud Detection and Mitigation"
+      ]
+    },
+    "collateral-management": {
+      "icon": "fa-balance-scale",
+      "title": "Collateral Management",
+      "description": "Optimizing asset utilization and ensuring compliance in trading and credit operations.",
+      "capabilities": [
+        "Asset Optimization and Substitution",
+        "Margin Call Automation and Management",
+        "Regulatory Compliance (EMIR, Dodd-Frank)",
+        "Risk Mitigation and Inventory Tracking"
+      ]
+    },
+    "counterparty-risk": {
+      "icon": "fa-user-shield",
+      "title": "Counterparty Risk",
+      "description": "Managing trading credit risk and ensuring organizational stability in financial markets.",
+      "capabilities": [
+        "Exposure Monitoring and Limit Management",
+        "Credit Risk Scoring and Assessment",
+        "Default Scenario Modeling",
+        "Reporting and Stakeholder Dashboards"
+      ]
+    },
+    "securities-data": {
+      "icon": "fa-database",
+      "title": "Securities Data",
+      "description": "Mastery of reference data management for complex financial instruments.",
+      "capabilities": [
+        "Instrument Master Data Management",
+        "Pricing Data Feeds and Integration",
+        "Corporate Actions Processing",
+        "Data Quality and Governance"
+      ]
+    },
+    "software-dev": {
+      "icon": "fa-code",
+      "title": "Software Development",
+      "description": "Technical foundation built on engineering excellence and robust architectural principles.",
+      "capabilities": [
+        "Full-Stack Development Experience",
+        "System Architecture and Design",
+        "Cloud-Native Application Development",
+        "DevOps Mindset and Tooling"
+      ]
+    },
+    "software-testing": {
+      "icon": "fa-vial",
+      "title": "Software Testing",
+      "description": "Championing Quality Engineering to ensure reliable and high-performance product delivery.",
+      "capabilities": [
+        "Automated Testing Frameworks",
+        "Functionality, Acceptance, and Regression Testing",
+        "Quality Metrics and Analytics",
+        "Shift-Left Test Strategies - Inspections, Reviews, and BDD"
+      ]
+    },
+    "scrum-master": {
+      "icon": "fa-users-cog",
+      "title": "Scrum Master",
+      "description": "Facilitating Agile delivery and empowering teams to reach peak performance.",
+      "capabilities": [
+        "Agile Ceremony Facilitation",
+        "Team Coaching and Mentorship",
+        "Roadblock Removal and Flow Optimization",
+        "Servant Leadership"
+      ]
+    },
+    "product-management": {
+      "icon": "fa-briefcase",
+      "title": "Product Management",
+      "description": "Strategic leadership in product discovery, delivery, and lifecycle management.",
+      "capabilities": [
+        "Strategic Vision and Execution",
+        "Customer Discovery and Insights",
+        "Prioritization and Stakeholder Alignment",
+        "Outcome-Driven Product Roadmaps"
+      ]
+    },
+    "rbc-director": {
+      "icon": "fa-building",
+      "title": "Director, Product Management",
+      "description": "Leading product strategy and delivery at RBC Capital Markets, focusing on process optimization and enterprise solutions.",
+      "capabilities": [
+        "Product Vision for Capital Markets Solutions",
+        "Process Optimization and Digitization",
+        "Cross-Functional Team Leadership",
+        "Executive Stakeholder Management"
+      ]
+    },
+    "citi-vp": {
+      "icon": "fa-landmark",
+      "title": "Vice President",
+      "description": "Led key product initiatives at Citi, focusing on transaction processing and treasury solutions.",
+      "capabilities": [
+        "Technical Delivery Oversight for NAM (US)",
+        "Platform Modernization",
+        "Regulatory Compliance Technical Delivery",
+        "Team Performance Management",
+        "Technical Demands and Release Management"
+      ]
+    },
+    "td-practice-lead": {
+      "icon": "fa-check-circle",
+      "title": "Practice Lead I",
+      "description": "Championed Quality Engineering and practice standards at TD, driving excellence across multiple product lines.",
+      "capabilities": [
+        "Quality Engineering strategy and governance",
+        "Automation COE leadership",
+        "Strategic planning and resource optimization",
+        "Mentorship of practice members"
+      ]
+    },
+    "cognizant-sqe": {
+      "icon": "fa-shield-halved",
+      "title": "Senior Quality Engineer",
+      "description": "Delivered high-quality software solutions for global financial clients at Cognizant.",
+      "capabilities": [
+        "Lead QA Engineer for Complex Fintech Projects",
+        "Automation Framework Architecture",
+        "Functionalities and Acceptance Testing",
+        "Progress Reporting and Stakeholder Communication"
+      ]
+    }
+  };
+
   async function initModals() {
     const modal = safe("#siteModal");
     if (!modal) return;
-    let dataMap = {};
+    let dataMap = Object.assign({}, EMBEDDED_SITE_DATA);
     try {
       const res = await fetch("./site_data.json");
-      if (res.ok) dataMap = await res.json();
+      if (res.ok) {
+        const fetched = await res.json();
+        dataMap = Object.assign({}, dataMap, fetched);
+      }
     } catch (err) {
-      console.error("Failed to load site data:", err);
+      // Use embedded fallback if fetch fails on file:// or CORS block
     }
 
     const triggers = safeAll("[data-modal-id], [data-competency]");
