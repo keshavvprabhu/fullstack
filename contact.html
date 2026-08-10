@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="./assets/KP-Logo.png">
     <link rel="stylesheet" href="./styles.css">
@@ -25,7 +28,7 @@
             <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
             <li><a href="videos.html"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
             <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
-            <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+            <li><a href="contact.html" class="active"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
         </ul>
     </div>
 
@@ -46,7 +49,7 @@
                 <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
                 <li><a href="videos.html"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
                 <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
-                <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                <li><a href="contact.html" class="active"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
             <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                 <i class="fas fa-moon"></i>
@@ -55,18 +58,19 @@
     </nav>
 
     <header class="hero hero-small">
+        <canvas id="heroCanvas"></canvas>
         <div class="hero-content">
-            <div class="hero-text">
+            <div class="hero-text reveal-scale">
                 <h1>Get In Touch</h1>
                 <p class="tagline">Let's discuss how we can collaborate and create great things together</p>
             </div>
         </div>
     </header>
 
-    <section class="contact-section">
+    <section class="contact-section reveal">
         <div class="container">
             <div class="contact-wrapper">
-                <div class="contact-info">
+                <div class="contact-info reveal-left">
                     <h2>Find me on Social Media</h2>
                     <p class="social-intro">
                         Connect with me to follow my work and professional updates.
@@ -84,7 +88,7 @@
                     </div>
                 </div>
 
-                <form class="contact-form" action="https://formspree.io/f/xgovgbyq" method="POST">
+                <form class="contact-form reveal-right" action="https://formspree.io/f/xgovgbyq" method="POST">
                     <input type="hidden" name="_subject" value="New Contact from Website!">
                     <input type="text" name="_gotcha" class="hidden" title="Do not fill this field">
                     <input type="hidden" name="_next" value="https://keshavprabhu.github.io/fullstack/index.html">
@@ -112,7 +116,7 @@
                         <label for="message">Message *</label>
                         <textarea id="message" name="message" rows="6" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large">Send Message</button>
+                    <button type="submit" class="btn btn-primary btn-large"><i class="fas fa-paper-plane"></i> Send Message</button>
                 </form>
             </div>
         </div>

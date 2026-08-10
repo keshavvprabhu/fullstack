@@ -74,21 +74,21 @@ h1, h2, h3, h4, h5, h6, .logo, .sidebar-logo-text, .nav-links a {
 
 /* Navigation Bar Styles */
 .navbar {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, #1e3c72 0%, #152b52 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 242, 254, 0.25);
   padding: 1rem 0;
   position: sticky;
   top: 0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 25px rgba(15, 30, 60, 0.4), 0 0 15px rgba(0, 242, 254, 0.15);
   z-index: 1000;
   transition: all 0.4s ease;
 }
 
 html[data-theme="dark"] .navbar {
-  background: rgba(7, 10, 18, 0.85);
-  border-bottom-color: rgba(0, 242, 254, 0.2);
+  background: linear-gradient(135deg, #1e3c72 0%, #0d1a33 100%);
+  border-bottom-color: rgba(0, 242, 254, 0.3);
 }
 
 .nav-container {
@@ -105,7 +105,7 @@ html[data-theme="dark"] .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .sidebar-logo {
@@ -119,13 +119,14 @@ html[data-theme="dark"] .navbar {
   height: 50px;
   width: auto;
   border-radius: 6px;
+  background-color: #1e3c72;
   box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
 }
 
 .sidebar-logo-text {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: #ffffff;
   letter-spacing: -0.5px;
 }
 
@@ -133,7 +134,7 @@ html[data-theme="dark"] .navbar {
   display: block;
   background: transparent;
   border: none;
-  color: var(--color-text);
+  color: #ffffff;
   font-size: 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -147,7 +148,7 @@ html[data-theme="dark"] .navbar {
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: #ffffff;
   letter-spacing: -0.5px;
   display: flex;
   align-items: center;
@@ -159,12 +160,13 @@ html[data-theme="dark"] .navbar {
   height: 40px;
   width: auto;
   border-radius: 6px;
+  background-color: #1e3c72;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .logo:hover .logo-img {
   transform: scale(1.08) rotate(2deg);
-  filter: drop-shadow(0 0 8px var(--color-neon-cyan));
+  filter: drop-shadow(0 0 10px var(--color-neon-cyan));
 }
 
 .nav-links {
@@ -174,7 +176,7 @@ html[data-theme="dark"] .navbar {
 }
 
 .nav-links a {
-  color: var(--color-text);
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -215,10 +217,10 @@ html[data-theme="dark"] .navbar {
 
 /* Theme Toggle Button */
 .theme-toggle {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  color: var(--color-text);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
   border-radius: 50%;
   width: 42px;
   height: 42px;
@@ -228,7 +230,7 @@ html[data-theme="dark"] .navbar {
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   font-size: 1.2rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .theme-toggle:hover {
@@ -1071,8 +1073,7 @@ html[data-theme="dark"] .stats-section h2 {
   top: 0;
   width: 300px;
   height: 100vh;
-  background-color: var(--color-bg-white);
-  background-color: var(--color-secondary);
+  background: linear-gradient(180deg, #1e3c72 0%, #122546 100%);
   color: white;
   padding: 0;
   overflow-y: auto;

@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="./assets/KP-Logo.png">
     <link rel="stylesheet" href="./styles.css">
@@ -25,7 +28,7 @@
         <ul class="sidebar-links">
             <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
             <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
-            <li><a href="videos.html"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
+            <li><a href="videos.html" class="active"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
             <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
         </ul>
@@ -46,7 +49,7 @@
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
                 <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
-                <li><a href="videos.html"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
+                <li><a href="videos.html" class="active"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
                 <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
@@ -56,14 +59,19 @@
         </div>
     </nav>
 
+    <header class="hero hero-small">
+        <canvas id="heroCanvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-text reveal-scale">
+                <h1>Video Demos & Presentation Highlights</h1>
+                <p class="tagline">Interactive demonstrations, keynote talks, and recorded engineering showcases</p>
+            </div>
+        </div>
+    </header>
+
     <main>
         <div class="container">
-            <div class="page-header">
-                <h1>Videos</h1>
-                <p>Demo videos and screen recordings</p>
-            </div>
-
-            <section class="recordings-section page-section">
+            <section class="recordings-section page-section reveal">
                 <div id="videosContainer">
                     <!-- Dynamic content will be injected here -->
                     <div class="loading-state">
@@ -74,11 +82,11 @@
         </div>
     </main>
 
-    <section class="cta-section page-section about-section">
+    <section class="cta-section page-section about-section reveal">
         <div class="container">
             <h2>Ready to Work Together?</h2>
             <p class="section-intro">Let's discuss how I can help drive your product vision forward.</p>
-            <a href="contact.html" class="btn btn-large">Contact Me Today</a>
+            <a href="contact.html" class="btn btn-primary btn-large">Contact Me Today</a>
         </div>
     </section>
 
