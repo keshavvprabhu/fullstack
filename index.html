@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="./assets/KP-Logo.png">
     <link rel="stylesheet" href="./styles.css">
@@ -44,7 +47,7 @@
                 <span>Keshav Prabhu</span>
             </a>
             <ul class="nav-links">
-                <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+                <li><a href="index.html" class="active"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
                 <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
                 <li><a href="videos.html"><i class="fas fa-video" aria-hidden="true"></i> Videos</a></li>
                 <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
@@ -57,22 +60,29 @@
     </nav>
 
     <header class="hero">
+        <canvas id="heroCanvas"></canvas>
         <div class="hero-content">
-            <div class="hero-text">
+            <div class="hero-text reveal-left">
+                <div class="hero-badge-tag"><i class="fas fa-bolt"></i> Product Innovation Leader</div>
                 <h1>Transforming Vision into Market-Leading Products</h1>
-                <p class="title">Director - Product Management</p>
+                <p class="title"><i class="fas fa-rocket"></i> Director - Product Management</p>
                 <p class="tagline">Director of Product Management with a track record of driving innovation and scaling solutions at enterprise levels.</p>
                 <div class="cta-buttons">
-                    <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+                    <a href="contact.html" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+                    <a href="articles.html" class="btn btn-secondary"><i class="fas fa-book-open"></i> Read Articles</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="./assets/image.jpg" alt="Keshav Prabhu Portrait" class="profile-image" loading="lazy">
+            <div class="hero-image reveal-right">
+                <div class="hero-image-wrapper">
+                    <img src="./assets/image.jpg" alt="Keshav Prabhu Portrait" class="profile-image" loading="lazy">
+                    <div class="tech-badge tech-badge-1"><i class="fas fa-award"></i> RBC Leader</div>
+                    <div class="tech-badge tech-badge-2"><i class="fas fa-chart-line"></i> Scale & Impact</div>
+                </div>
             </div>
         </div>
     </header>
 
-    <section id="about" class="about-section page-section">
+    <section id="about" class="about-section page-section reveal">
         <div class="container">
             <h2>About Me</h2>
 
@@ -80,7 +90,7 @@
                 With a strong foundation in engineering and over a decade of experience in FinTech Product Delivery in various roles, I focus on building products that solve real problems. I specialize in the translation of inherent complexity into actionable simplicity, bridging the gap between technical architecture and business strategy to deliver intuitive and robust solutions.
             </p>
 
-            <div class="expertise-section intro-expertise">
+            <div class="expertise-section intro-expertise reveal-scale">
                 <h2>Core Competencies</h2>
                 <div class="competency-carousel-wrapper">
                     <button type="button" class="carousel-nav carousel-prev" aria-label="Previous competency">
@@ -147,7 +157,7 @@
 
     </section>
 
-    <section id="domain" class="domain-wrapper page-section">
+    <section id="domain" class="domain-wrapper page-section reveal">
         <div class="container">
             <div class="domain-section">
                 <h2>Domain Experience</h2>
@@ -211,7 +221,7 @@
         </div>
     </section>
 
-    <section id="roles" class="roles-wrapper page-section">
+    <section id="roles" class="roles-wrapper page-section reveal-scale">
         <div class="container">
             <div class="roles-section">
                 <h2>Roles</h2>
@@ -257,7 +267,7 @@
         </div>
     </section>
 
-    <section id="experience" class="experience-wrapper page-section">
+    <section id="experience" class="experience-wrapper page-section reveal">
         <div class="container">
             <div class="timeline-section">
                 <h2>Professional Experience</h2>
@@ -336,7 +346,7 @@
 
 
 
-    <section class="certifications-section page-section">
+    <section class="certifications-section page-section reveal-scale">
         <div class="container">
             <h2>Certifications &amp; Credentials</h2>
             <div class="certs-grid">
@@ -376,7 +386,7 @@
         </div>
     </section>
 
-    <section class="cta-section page-section about-section">
+    <section class="cta-section page-section about-section reveal">
         <div class="container">
             <h2>Ready to Work Together?</h2>
             <p class="section-intro">Let's discuss how I can help drive your product vision forward.</p>

@@ -186,6 +186,11 @@ function initUI(): void {
 
   // Initialize articles if we are on articles.html
   initArticlesPage();
+
+  // Initialize Futuristic Canvas, 3D Tilt, and Scroll Reveal
+  initHeroCanvas();
+  initScrollReveal();
+  init3DTilt();
 }
 
 async function initVideosPage() {
@@ -247,6 +252,10 @@ function renderGrid(items: GridItem[], container: HTMLElement, options: { gridCl
     items.forEach(item => grid.appendChild(createCard(item, options.cardClass)));
     container.appendChild(grid);
   }
+
+  // Re-bind 3D tilt and scroll reveal observers for newly generated elements
+  init3DTilt();
+  initScrollReveal();
 }
 
 function createCard(item: GridItem, cardClass: string): HTMLElement {
@@ -540,6 +549,164 @@ async function initCompetencyCarousel() {
   // Update indicators on scroll
   carousel.addEventListener("scroll", updateIndicators, { passive: true });
   updateIndicators();
+}
+
+/**
+ * Interactive Sci-Fi Particle Constellation Background for Hero Canvas
+ */
+function initHeroCanvas(): void {
+  const canvas = safe<HTMLCanvasElement>("#heroCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const parent = canvas.parentElement;
+  if (!parent) return;
+
+  let width = (canvas.width = parent.offsetWidth || window.innerWidth);
+  let height = (canvas.height = parent.offsetHeight || window.innerHeight);
+
+  window.addEventListener("resize", () => {
+    width = canvas.width = parent.offsetWidth || window.innerWidth;
+    height = canvas.height = parent.offsetHeight || window.innerHeight;
+  }, { passive: true });
+
+  const numParticles = Math.min(Math.floor((width * height) / 11000), 75);
+  const particles: Array<{
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    color: string;
+  }> = [];
+
+  const colors = ["#00f2fe", "#4facfe", "#8b5cf6", "#38bdf8"];
+
+  for (let i = 0; i < numParticles; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.7,
+      vy: (Math.random() - 0.5) * 0.7,
+      radius: Math.random() * 2 + 1,
+      color: colors[Math.floor(Math.random() * colors.length)]
+    });
+  }
+
+  let mouseX = width / 2;
+  let mouseY = height / 2;
+
+  window.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  }, { passive: true });
+
+  function animate() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw particle connection lines
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 125) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(0, 242, 254, ${0.22 * (1 - dist / 125)})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Update & draw particles
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+
+      // Mouse attraction / repulsion
+      const dx = mouseX - p.x;
+      const dy = mouseY - p.y;
+      const mouseDist = Math.sqrt(dx * dx + dy * dy);
+      if (mouseDist < 120) {
+        p.x -= (dx / mouseDist) * 0.4;
+        p.y -= (dy / mouseDist) * 0.4;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = p.color;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+}
+
+/**
+ * Scroll Reveal Animation via IntersectionObserver
+ */
+function initScrollReveal(): void {
+  const revealElements = document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale");
+  if (!revealElements.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  revealElements.forEach((el) => observer.observe(el));
+}
+
+/**
+ * 3D Interactive Card Tilt & Mouse Spotlight Tracking
+ */
+function init3DTilt(): void {
+  const tiltCards = document.querySelectorAll<HTMLElement>(
+    ".competency-card, .content-card, .tech-card, .domain-card, .cert-card, .stat-card, .portfolio-card, .timeline-content, .contact-form, .contact-info"
+  );
+
+  tiltCards.forEach((card) => {
+    card.addEventListener("mousemove", (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+    }, { passive: true });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+    }, { passive: true });
+  });
 }
 
 // Run initialization on DOM ready
