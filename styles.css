@@ -1847,18 +1847,7 @@ html[data-theme="dark"] .competency-card h3 {
 }
 
 .card-hint {
-  display: inline-block;
-  font-size: 0.75rem;
-  color: var(--color-neon-cyan);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-}
-
-.competency-card:hover .card-hint {
-  opacity: 1;
+  display: none !important;
 }
 
 /* Carousel Navigation Buttons */
