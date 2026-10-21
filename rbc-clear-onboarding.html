@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blackstone × RBC Clear | Standardized DDA Onboarding Blueprint</title>
+  <meta name="description" content="One-page blueprint for onboarding Blackstone to RBC Clear: a standard, reusable document package, US KYC/AML due diligence, account opening and SWIFT MT940/942/900/910 connectivity within 72 hours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #050d1f;
+      --bg-1: #0a1a3a;
+      --blue: #3b8dff;
+      --cyan: #38d6f5;
+      --teal: #2dd4bf;
+      --violet: #9b8cff;
+      --gold: #ffc72c;
+      --rose: #ff7a90;
+      --mint: #6ef3a5;
+      --orange: #ff9f5a;
+      --text: #e9f0fb;
+      --muted: #94a6c6;
+      --line: rgba(255, 255, 255, 0.09);
+      --glass: rgba(255, 255, 255, 0.035);
+      --glass-hi: rgba(255, 255, 255, 0.06);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #02060f;
+      overflow: hidden;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- Fixed 16:9 canvas, scaled to fit the viewport ---------- */
+    .stage { position: fixed; inset: 0; overflow: hidden; }
+
+    .slide {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1920px;
+      height: 1080px;
+      margin: -540px 0 0 -960px;
+      transform-origin: center center;
+      padding: 30px 52px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+      background:
+        radial-gradient(1100px 600px at 92% -10%, rgba(59, 141, 255, 0.22), transparent 60%),
+        radial-gradient(900px 500px at -5% 110%, rgba(45, 212, 191, 0.14), transparent 60%),
+        radial-gradient(700px 400px at 55% 45%, rgba(0, 93, 170, 0.18), transparent 70%),
+        linear-gradient(160deg, var(--bg-1), var(--bg-0) 70%);
+      box-shadow: 0 30px 120px rgba(0, 0, 0, 0.6);
+    }
+
+    /* faint grid texture */
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+
+    .slide > * { position: relative; z-index: 1; flex: none; }
+
+    .i {
+      width: 1em; height: 1em;
+      fill: none; stroke: currentColor;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+      flex: none;
+    }
+
+    /* ---------- Entrance animation ---------- */
+    .reveal { opacity: 0; transform: translateY(14px); animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    /* ---------- Header ---------- */
+    header.top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .brand {
+      font-family: "Outfit", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--glass);
+    }
+    .brand.bx { color: #fff; }
+    .brand.rbc { color: var(--gold); border-color: rgba(255, 199, 44, 0.35); background: rgba(0, 93, 170, 0.35); }
+    .brand-x { color: var(--muted); font-size: 17px; }
+    .eyebrow { color: var(--muted); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-left: 6px; }
+
+    h1 {
+      font-family: "Outfit", sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    h1 .grad {
+      background: linear-gradient(90deg, var(--gold), #ffe08a 35%, var(--cyan) 75%, var(--blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .subtitle { color: var(--muted); font-size: 15px; margin-top: 6px; white-space: nowrap; }
+    .subtitle b { color: var(--text); font-weight: 600; }
+
+    .kpis { display: flex; gap: 12px; }
+    .kpi {
+      width: 132px;
+      padding: 11px 14px;
+      border-radius: 16px;
+      background: var(--glass);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+      transition: transform .25s, border-color .25s, background .25s;
+    }
+    .kpi:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.2); background: var(--glass-hi); }
+    .kpi .num { font-family: "Outfit", sans-serif; font-weight: 800; font-size: 34px; line-height: 1; }
+    .kpi .lbl { font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.3; }
+    .kpi:nth-child(1) .num { color: var(--gold); }
+    .kpi:nth-child(2) .num { color: var(--cyan); }
+    .kpi:nth-child(3) .num { color: var(--teal); }
+    .kpi:nth-child(4) .num { color: var(--violet); }
+
+    /* ---------- Card base ---------- */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+    }
+    .card-h {
+      display: flex; align-items: center; gap: 12px;
+      font-family: "Outfit", sans-serif;
+      font-weight: 600; font-size: 19px;
+    }
+    .card-h .badge {
+      width: 32px; height: 32px; border-radius: 10px;
+      display: grid; place-items: center; font-size: 18px;
+    }
+    .card-h .tag {
+      margin-left: auto;
+      font-family: "Inter", sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted);
+      padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    /* ---------- Journey timeline ---------- */
+    .journey { padding: 14px 26px 12px; }
+    .journey .card-h { margin-bottom: 10px; }
+
+    .steps {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+    }
+    .steps::before,
+    .steps::after {
+      content: "";
+      position: absolute;
+      top: 27px; left: 8%; right: 8%;
+      height: 3px; border-radius: 3px;
+    }
+    .steps::before { background: rgba(255,255,255,0.08); }
+    .steps::after {
+      background: linear-gradient(90deg, var(--gold), var(--blue), var(--teal), var(--violet), var(--cyan), var(--mint));
+      background-size: 200% 100%;
+      transform-origin: left;
+      transform: scaleX(0);
+      animation: grow 1.6s .5s cubic-bezier(.4,0,.2,1) forwards, flow 4s linear infinite;
+      box-shadow: 0 0 18px rgba(59,141,255,0.5);
+    }
+    @keyframes grow { to { transform: scaleX(1); } }
+    @keyframes flow { to { background-position: -200% 0; } }
+
+    .step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .node {
+      position: relative;
+      width: 56px; height: 56px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 25px;
+      background: #0b1a38;
+      border: 2px solid var(--c);
+      color: var(--c);
+      box-shadow: 0 0 0 6px rgba(5,13,31,0.9), 0 0 26px color-mix(in srgb, var(--c) 45%, transparent);
+      transition: transform .3s;
+      z-index: 2;
+    }
+    .step:hover .node { transform: scale(1.08); }
+    .node .n {
+      position: absolute; top: -6px; right: -6px;
+      width: 21px; height: 21px; border-radius: 50%;
+      background: var(--c); color: #061127;
+      font: 700 12px/21px "Outfit", sans-serif;
+    }
+    .step.final .node { animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 6px rgba(5,13,31,0.9), 0 0 0 0 color-mix(in srgb, var(--c) 50%, transparent); }
+      50% { box-shadow: 0 0 0 6px rgba(5,13,31,0.9), 0 0 0 16px transparent; }
+    }
+
+    .time {
+      margin-top: 10px;
+      font: 700 12.5px "Outfit", sans-serif;
+      letter-spacing: 0.05em;
+      color: var(--c);
+      padding: 2px 10px; border-radius: 999px;
+      background: color-mix(in srgb, var(--c) 14%, transparent);
+    }
+    .step h3 { font-family: "Outfit", sans-serif; font-size: 18px; font-weight: 600; margin: 5px 0 3px; }
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.4; max-width: 275px; }
+    .owner {
+      margin-top: 7px;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--text);
+      padding: 3px 10px; border-radius: 8px;
+      border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+    }
+    .owner::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+
+    /* 72h SLA bar */
+    .sla { margin-top: 10px; }
+    .sla-ticks {
+      display: flex; justify-content: space-between;
+      font: 600 11px "Outfit", sans-serif; color: var(--muted);
+      margin-bottom: 4px; padding: 0 1px;
+    }
+    .sla-bar { display: flex; height: 26px; border-radius: 9px; overflow: hidden; background: rgba(255,255,255,0.05); }
+    .seg {
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 600; color: #061127;
+      white-space: nowrap; overflow: hidden;
+      transform-origin: left; transform: scaleX(0);
+      animation: grow .5s cubic-bezier(.4,0,.2,1) forwards;
+      border-right: 2px solid #07142b;
+    }
+    .seg:last-child { border-right: 0; }
+    .parallel { position: relative; height: 18px; margin-top: 4px; }
+    .parallel span {
+      position: absolute; left: 5.56%; width: 44.44%; height: 100%;
+      border-radius: 6px;
+      display: flex; align-items: center; padding-left: 10px;
+      font-size: 11px; font-weight: 600; color: var(--cyan);
+      border: 1px dashed rgba(56,214,245,0.55);
+      background: repeating-linear-gradient(135deg, rgba(56,214,245,0.12) 0 6px, transparent 6px 12px);
+    }
+    .parallel em {
+      position: absolute; right: 0; top: 1px;
+      font-style: normal; font-size: 11px; color: var(--muted);
+    }
+
+    /* ---------- Bottom grid ---------- */
+    .grid3 {
+      flex: 1 1 auto !important;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1.02fr 1.28fr 0.98fr;
+      gap: 16px;
+    }
+    .panel { padding: 16px 20px; display: flex; flex-direction: column; min-height: 0; overflow: hidden; transition: border-color .25s; }
+    .panel:hover { border-color: rgba(255,255,255,0.18); }
+    .panel .card-h { margin-bottom: 12px; }
+
+    /* Document package */
+    .group-h {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      margin: 0 0 6px;
+    }
+    .group-h small { font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--muted); font-size: 12px; }
+    .docs { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+    .docs:last-child { margin-bottom: 0; }
+    .docs li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; line-height: 1.25; white-space: nowrap;
+      padding: 6px 10px; border-radius: 9px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid transparent;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .docs li:hover { background: rgba(255,255,255,0.06); border-color: var(--line); transform: translateX(3px); }
+    .docs li .i { font-size: 16px; }
+    .docs li small { color: var(--muted); font-size: 11.5px; }
+    .docs.standing li .i { color: var(--gold); }
+    .docs.per li .i { color: var(--blue); }
+
+    /* KYC tiles */
+    .kyc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .kyc {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      column-gap: 11px;
+      align-items: center;
+      padding: 8px 12px 8px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s, border-color .25s, background .25s;
+    }
+    .kyc::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); }
+    .kyc:hover { transform: translateY(-2px); background: rgba(255,255,255,0.06); border-color: color-mix(in srgb, var(--c) 50%, transparent); }
+    .kyc .ic {
+      grid-row: 1 / span 3;
+      width: 34px; height: 34px; border-radius: 10px;
+      display: grid; place-items: center; font-size: 18px;
+      color: var(--c);
+      background: color-mix(in srgb, var(--c) 15%, transparent);
+    }
+    .kyc h4 { font-family: "Outfit", sans-serif; font-size: 14.5px; font-weight: 600; line-height: 1.2; }
+    .kyc .ref { font-size: 10.5px; font-weight: 600; color: var(--gold); letter-spacing: 0.02em; line-height: 1.4; }
+    .kyc p { font-size: 12px; color: var(--muted); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .callout {
+      margin-top: 10px;
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 8px 12px; border-radius: 12px;
+      background: linear-gradient(90deg, rgba(255,199,44,0.12), rgba(255,199,44,0.03));
+      border: 1px solid rgba(255,199,44,0.3);
+      font-size: 12px; line-height: 1.4; color: #f3e6bf;
+    }
+    .callout .i { font-size: 18px; color: var(--gold); margin-top: 1px; }
+    .callout b { color: #fff; }
+
+    /* SWIFT panel */
+    .flow { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .end {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 12px; border-radius: 12px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+      font-size: 12.5px; font-weight: 600; line-height: 1.2;
+    }
+    .end .i { font-size: 19px; }
+    .end small { display: block; font-weight: 500; color: var(--muted); font-size: 11px; }
+    .end.rbc .i { color: var(--gold); }
+    .end.bx .i { color: var(--cyan); }
+    .wire { position: relative; height: 24px; }
+    .wire svg { width: 100%; height: 100%; overflow: visible; }
+    .wire .lbl {
+      position: absolute; left: 50%; top: -12px; transform: translateX(-50%);
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; color: var(--cyan); white-space: nowrap;
+    }
+    .dash { stroke-dasharray: 6 6; animation: dash 1.2s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -24; } }
+
+    .msgs { display: flex; flex-direction: column; gap: 11px; }
+    .msg {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      align-items: center; gap: 12px;
+      padding: 10px 12px; border-radius: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--line);
+      transition: transform .2s, background .2s;
+    }
+    .msg:hover { transform: translateX(3px); background: rgba(255,255,255,0.06); }
+    .mt { font: 800 16px "Outfit", sans-serif; text-align: center; padding: 6px 0; border-radius: 9px; color: #061127; background: var(--c); }
+    .msg h5 { font-family: "Outfit", sans-serif; font-size: 14.5px; font-weight: 600; }
+    .msg p { font-size: 12px; color: var(--muted); line-height: 1.3; }
+    .freq {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--c); padding: 4px 8px; border-radius: 7px;
+      border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+      white-space: nowrap;
+    }
+    .chips { display: flex; align-items: center; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+    .chip {
+      font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+      background: rgba(56,214,245,0.1); color: var(--cyan); border: 1px solid rgba(56,214,245,0.25);
+    }
+    .chips .arrow { color: var(--muted); font-size: 12px; }
+    .iso { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+    .iso b { color: var(--text); font-weight: 600; }
+
+    /* ---------- Footer: completion deliverables ---------- */
+    footer.deliver {
+      display: flex; align-items: center; gap: 14px;
+      padding: 9px 18px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, rgba(110,243,165,0.12), rgba(59,141,255,0.08) 60%, rgba(255,255,255,0.02));
+      border: 1px solid rgba(110,243,165,0.28);
+    }
+    .deliver .lead {
+      display: flex; align-items: center; gap: 10px;
+      font-family: "Outfit", sans-serif; font-weight: 700; font-size: 16px; color: var(--mint);
+      white-space: nowrap;
+    }
+    .deliver .lead .i { font-size: 22px; }
+    .deliver .items { display: flex; gap: 8px; }
+    .deliver .items span {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12.5px; font-weight: 600; white-space: nowrap;
+      padding: 6px 11px; border-radius: 9px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--line);
+    }
+    .deliver .items .i { color: var(--mint); font-size: 14px; }
+    .deliver .go {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 700; color: #061127; white-space: nowrap;
+      background: linear-gradient(90deg, var(--mint), var(--cyan));
+      padding: 7px 14px; border-radius: 10px;
+    }
+    .deliver .fine { margin-left: auto; font-size: 11px; color: var(--muted); text-align: right; line-height: 1.35; white-space: nowrap; }
+
+    /* ---------- Print: exactly one landscape page ---------- */
+    @page { size: 1920px 1080px; margin: 0; }
+    @media print {
+      html, body { overflow: visible; background: none; }
+      .stage { position: static; }
+      .slide { position: relative; left: 0; top: 0; margin: 0; transform: none !important; box-shadow: none; }
+      .reveal, .seg, .steps::after { animation: none !important; opacity: 1 !important; transform: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Reusable SVG icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="ic-package" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></symbol>
+      <symbol id="ic-checklist" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8l1.5 1.5L12 7M8 14l1.5 1.5L12 13M14 8.5h3M14 14.5h3"/></symbol>
+      <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+      <symbol id="ic-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6"/><path d="M5 10v8M10 10v8M14 10v8M19 10v8M3 20.5h18"/></symbol>
+      <symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+      <symbol id="ic-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+      <symbol id="ic-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h4M14 14h4"/></symbol>
+      <symbol id="ic-tree" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v5M6 17v-2h12v2"/></symbol>
+      <symbol id="ic-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></symbol>
+      <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></symbol>
+      <symbol id="ic-gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 1116 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1"/></symbol>
+      <symbol id="ic-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></symbol>
+      <symbol id="ic-flow" viewBox="0 0 24 24"><path d="M3 7h15l-3-3M21 17H6l3 3"/></symbol>
+      <symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="ic-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13 7l4 4"/></symbol>
+      <symbol id="ic-stamp" viewBox="0 0 24 24"><path d="M9 3h6v5l-1 4h4a2 2 0 012 2v3H4v-3a2 2 0 012-2h4l-1-4V3z"/><path d="M4 21h16"/></symbol>
+      <symbol id="ic-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></symbol>
+      <symbol id="ic-hash" viewBox="0 0 24 24"><path d="M5 9h14M5 15h14M10 4L8 20M16 4l-2 16"/></symbol>
+      <symbol id="ic-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3 3 0 000-6H9a3 3 0 010-6h7"/></symbol>
+      <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></symbol>
+      <symbol id="ic-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+      <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="ic-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 00-14.9-3M4 13a8 8 0 0014.9 3"/><path d="M4 4v4h4M20 20v-4h-4"/></symbol>
+      <symbol id="ic-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="stage">
+    <main class="slide" id="slide">
+
+      <!-- ================= HEADER ================= -->
+      <header class="top reveal" style="animation-delay:.05s">
+        <div>
+          <div class="brand-row">
+            <span class="brand bx">Blackstone</span>
+            <span class="brand-x">×</span>
+            <span class="brand rbc">RBC Clear</span>
+            <span class="eyebrow">Corporate DDA Onboarding Blueprint</span>
+          </div>
+          <h1>One standard package. <span class="grad">Live &amp; SWIFT-connected in 72h.</span></h1>
+          <p class="subtitle">A reusable document set for any Blackstone entity. RBC Clear runs <b>KYC</b>, <b>DDA opening</b> and <b>SWIFT MT940 / 942 / 900 / 910</b> setup end-to-end.</p>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="num">72h</div><div class="lbl">SLA from receipt of a complete package</div></div>
+          <div class="kpi"><div class="num">1</div><div class="lbl">Reusable standard document package</div></div>
+          <div class="kpi"><div class="num">8</div><div class="lbl">US KYC / AML control areas</div></div>
+          <div class="kpi"><div class="num">4</div><div class="lbl">SWIFT MT reports at go-live</div></div>
+        </div>
+      </header>
+
+      <!-- ================= JOURNEY ================= -->
+      <section class="card journey reveal" style="animation-delay:.2s" aria-labelledby="journey-h">
+        <div class="card-h">
+          <span class="badge" style="background:rgba(59,141,255,.15);color:var(--blue)"><svg class="i"><use href="#ic-route"/></svg></span>
+          <h2 id="journey-h" style="font:inherit">Onboarding Journey: Package to Go-Live</h2>
+          <span class="tag">Clock starts at receipt of an in-good-order package</span>
+        </div>
+
+        <div class="steps">
+          <div class="step" style="--c:var(--gold)">
+            <div class="node"><svg class="i"><use href="#ic-package"/></svg><span class="n">1</span></div>
+            <span class="time">T + 0h</span>
+            <h3>Package Submitted</h3>
+            <p>Standard package sent via secure channel; only entity-specific items change.</p>
+            <span class="owner">Blackstone Treasury</span>
+          </div>
+          <div class="step" style="--c:var(--blue)">
+            <div class="node"><svg class="i"><use href="#ic-checklist"/></svg><span class="n">2</span></div>
+            <span class="time">T + 0–4h</span>
+            <h3>Intake &amp; Completeness</h3>
+            <p>Checked against the agreed checklist; KYC &amp; connectivity tasks triggered.</p>
+            <span class="owner">RBC Clear Onboarding</span>
+          </div>
+          <div class="step" style="--c:var(--teal)">
+            <div class="node"><svg class="i"><use href="#ic-shield"/></svg><span class="n">3</span></div>
+            <span class="time">T + 4–36h</span>
+            <h3>KYC / AML Due Diligence</h3>
+            <p>CIP, beneficial ownership, OFAC, PEP &amp; adverse media; risk rating &amp; approval.</p>
+            <span class="owner">KYC &amp; Financial Crimes</span>
+          </div>
+          <div class="step" style="--c:var(--violet)">
+            <div class="node"><svg class="i"><use href="#ic-bank"/></svg><span class="n">4</span></div>
+            <span class="time">T + 36–48h</span>
+            <h3>Account Opening</h3>
+            <p>DDA booked; signatories &amp; entitlements set; account no. &amp; ABA issued.</p>
+            <span class="owner">RBC Clear Operations</span>
+          </div>
+          <div class="step" style="--c:var(--cyan)">
+            <div class="node"><svg class="i"><use href="#ic-globe"/></svg><span class="n">5</span></div>
+            <span class="time">T + 48–68h</span>
+            <h3>SWIFT Connectivity</h3>
+            <p>RMA with Blackstone BIC; MT940 / 942 / 900 / 910 enrolled &amp; tested.</p>
+            <span class="owner">Connectivity &amp; Payments Tech</span>
+          </div>
+          <div class="step final" style="--c:var(--mint)">
+            <div class="node"><svg class="i"><use href="#ic-check"/></svg><span class="n">6</span></div>
+            <span class="time">≤ T + 72h</span>
+            <h3>Onboarding Complete</h3>
+            <p>Completion notice with account details; Blackstone funds &amp; transacts.</p>
+            <span class="owner">RBC Clear Relationship Mgmt</span>
+          </div>
+        </div>
+
+        <div class="sla" aria-label="72 hour SLA breakdown">
+          <div class="sla-ticks"><span>0h</span><span>12h</span><span>24h</span><span>36h</span><span>48h</span><span>60h</span><span>72h</span></div>
+          <div class="sla-bar">
+            <div class="seg" style="width:5.56%;background:var(--blue);animation-delay:.9s">Intake</div>
+            <div class="seg" style="width:44.44%;background:var(--teal);animation-delay:1.05s">KYC / AML due diligence · 32h</div>
+            <div class="seg" style="width:16.67%;background:var(--violet);animation-delay:1.2s">Account opening · 12h</div>
+            <div class="seg" style="width:27.77%;background:var(--cyan);animation-delay:1.35s">SWIFT enrollment &amp; testing · 20h</div>
+            <div class="seg" style="width:5.56%;background:var(--mint);animation-delay:1.5s">Notify</div>
+          </div>
+          <div class="parallel">
+            <span>Parallel track: SWIFT RMA check &amp; MT profile pre-staging</span>
+            <em>Illustrative allocation · KYC escalations (e.g., EDD, sanctions match) pause the clock</em>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BOTTOM GRID ================= -->
+      <div class="grid3">
+
+        <!-- Document package -->
+        <section class="card panel reveal" style="animation-delay:.35s" aria-labelledby="pkg-h">
+          <div class="card-h">
+            <span class="badge" style="background:rgba(255,199,44,.14);color:var(--gold)"><svg class="i"><use href="#ic-package"/></svg></span>
+            <h2 id="pkg-h" style="font:inherit">The Standard Document Package</h2>
+          </div>
+
+          <div class="group-h" style="color:var(--gold)"><svg class="i"><use href="#ic-refresh"/></svg> Standing master set <small>· agreed once, refreshed periodically</small></div>
+          <ul class="docs standing">
+            <li><svg class="i"><use href="#ic-pen"/></svg><span>Master Account Agreement &amp; RBC Clear T&amp;Cs</span></li>
+            <li><svg class="i"><use href="#ic-tree"/></svg><span>Org chart &amp; ownership structure</span></li>
+            <li><svg class="i"><use href="#ic-user"/></svg><span>Beneficial ownership certification <small>(re-confirmed each request)</small></span></li>
+            <li><svg class="i"><use href="#ic-id"/></svg><span>Authorized signers: IDs &amp; signature cards</span></li>
+            <li><svg class="i"><use href="#ic-globe"/></svg><span>SWIFT profile: BIC, RMA, MT selection</span></li>
+          </ul>
+
+          <div class="group-h" style="color:var(--blue)"><svg class="i"><use href="#ic-doc"/></svg> Per-account items <small>· for each new entity / account</small></div>
+          <ul class="docs per">
+            <li><svg class="i"><use href="#ic-checklist"/></svg><span>Account request <small>(entity, currency, purpose)</small></span></li>
+            <li><svg class="i"><use href="#ic-doc"/></svg><span>Certificate of Formation; LPA / LLC Agreement</span></li>
+            <li><svg class="i"><use href="#ic-stamp"/></svg><span>Good Standing cert; resolution &amp; incumbency</span></li>
+            <li><svg class="i"><use href="#ic-hash"/></svg><span>IRS W-9 <small>(EIN)</small> or W-8BEN-E <small>(non-US)</small></span></li>
+            <li><svg class="i"><use href="#ic-flow"/></svg><span>Expected activity &amp; source of funds</span></li>
+          </ul>
+        </section>
+
+        <!-- KYC -->
+        <section class="card panel reveal" style="animation-delay:.45s" aria-labelledby="kyc-h">
+          <div class="card-h">
+            <span class="badge" style="background:rgba(45,212,191,.14);color:var(--teal)"><svg class="i"><use href="#ic-shield"/></svg></span>
+            <h2 id="kyc-h" style="font:inherit">US KYC &amp; AML Due Diligence</h2>
+            <span class="tag">Bank Secrecy Act · USA PATRIOT Act</span>
+          </div>
+
+          <div class="kyc-grid">
+            <div class="kyc" style="--c:var(--teal)">
+              <div class="ic"><svg class="i"><use href="#ic-id"/></svg></div>
+              <h4>Customer Identification (CIP)</h4>
+              <div class="ref">31 CFR 1020.220</div>
+              <p>Verify name, address, EIN &amp; formation</p>
+            </div>
+            <div class="kyc" style="--c:var(--blue)">
+              <div class="ic"><svg class="i"><use href="#ic-tree"/></svg></div>
+              <h4>Beneficial Ownership</h4>
+              <div class="ref">CDD Rule · 31 CFR 1010.230</div>
+              <p>Each ≥25% owner + one control person</p>
+            </div>
+            <div class="kyc" style="--c:var(--rose)">
+              <div class="ic"><svg class="i"><use href="#ic-ban"/></svg></div>
+              <h4>Sanctions Screening</h4>
+              <div class="ref">OFAC SDN List · 50% Rule</div>
+              <p>Entity, parents, owners &amp; signers</p>
+            </div>
+            <div class="kyc" style="--c:var(--violet)">
+              <div class="ic"><svg class="i"><use href="#ic-search"/></svg></div>
+              <h4>PEP &amp; Adverse Media</h4>
+              <div class="ref">Risk-based screening</div>
+              <p>PEPs, negative news &amp; enforcement</p>
+            </div>
+            <div class="kyc" style="--c:var(--gold)">
+              <div class="ic"><svg class="i"><use href="#ic-gauge"/></svg></div>
+              <h4>Risk Rating &amp; EDD</h4>
+              <div class="ref">BSA / AML program</div>
+              <p>Risk score; EDD where risk is elevated</p>
+            </div>
+            <div class="kyc" style="--c:var(--cyan)">
+              <div class="ic"><svg class="i"><use href="#ic-hash"/></svg></div>
+              <h4>Tax Classification</h4>
+              <div class="ref">IRS W-9 / W-8 · FATCA</div>
+              <p>TIN validation &amp; FATCA status</p>
+            </div>
+            <div class="kyc" style="--c:var(--mint)">
+              <div class="ic"><svg class="i"><use href="#ic-flow"/></svg></div>
+              <h4>Nature &amp; Purpose</h4>
+              <div class="ref">CDD customer profile</div>
+              <p>Source of funds &amp; expected activity</p>
+            </div>
+            <div class="kyc" style="--c:var(--orange)">
+              <div class="ic"><svg class="i"><use href="#ic-eye"/></svg></div>
+              <h4>Ongoing Monitoring</h4>
+              <div class="ref">SAR / CTR · periodic review</div>
+              <p>Transaction monitoring &amp; KYC refresh</p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <svg class="i"><use href="#ic-info"/></svg>
+            <div><b>Why repeatable works:</b> FinCEN Order <b>FIN-2026-R001</b> (Feb 13, 2026) lets RBC Clear rely on previously verified beneficial ownership data for new accounts once Blackstone certifies it is unchanged. Blackstone Inc. (NYSE-listed) is exempt from beneficial ownership collection; fund and SPV vehicles generally are not.</div>
+          </div>
+        </section>
+
+        <!-- SWIFT -->
+        <section class="card panel reveal" style="animation-delay:.55s" aria-labelledby="swift-h">
+          <div class="card-h">
+            <span class="badge" style="background:rgba(56,214,245,.14);color:var(--cyan)"><svg class="i"><use href="#ic-globe"/></svg></span>
+            <h2 id="swift-h" style="font:inherit">SWIFT Reporting Suite</h2>
+          </div>
+
+          <div class="flow">
+            <div class="end rbc"><svg class="i"><use href="#ic-bank"/></svg><div>RBC Clear<small>DDA ledger</small></div></div>
+            <div class="wire">
+              <span class="lbl">SWIFT FIN</span>
+              <svg viewBox="0 0 200 24" preserveAspectRatio="none">
+                <line x1="0" y1="12" x2="192" y2="12" stroke="#38d6f5" stroke-width="2" class="dash"/>
+                <path d="M186 6l8 6-8 6" fill="none" stroke="#38d6f5" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="end bx"><svg class="i"><use href="#ic-key"/></svg><div>Blackstone<small>Treasury / TMS</small></div></div>
+          </div>
+
+          <div class="msgs">
+            <div class="msg" style="--c:var(--gold)">
+              <div class="mt">MT940</div>
+              <div><h5>Customer Statement</h5><p>End-of-day balances &amp; all booked entries</p></div>
+              <span class="freq">Daily EOD</span>
+            </div>
+            <div class="msg" style="--c:var(--cyan)">
+              <div class="mt">MT942</div>
+              <div><h5>Interim Transaction Report</h5><p>Intraday activity &amp; balances</p></div>
+              <span class="freq">Intraday</span>
+            </div>
+            <div class="msg" style="--c:var(--rose)">
+              <div class="mt">MT900</div>
+              <div><h5>Confirmation of Debit</h5><p>Advice for each debit posted</p></div>
+              <span class="freq">Per txn</span>
+            </div>
+            <div class="msg" style="--c:var(--mint)">
+              <div class="mt">MT910</div>
+              <div><h5>Confirmation of Credit</h5><p>Advice for each incoming credit</p></div>
+              <span class="freq">Per txn</span>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip">RMA exchange</span><span class="arrow">→</span>
+            <span class="chip">Enrollment</span><span class="arrow">→</span>
+            <span class="chip">Test &amp; validate</span><span class="arrow">→</span>
+            <span class="chip">Live</span>
+          </div>
+          <p class="iso">ISO 20022 equivalents for future migration: <b>camt.053</b> · <b>camt.052</b> · <b>camt.054</b></p>
+        </section>
+      </div>
+
+      <!-- ================= FOOTER ================= -->
+      <footer class="deliver reveal" style="animation-delay:.7s">
+        <div class="lead"><svg class="i"><use href="#ic-check"/></svg> Completion notice to Blackstone</div>
+        <div class="items">
+          <span><svg class="i"><use href="#ic-hash"/></svg>Account number</span>
+          <span><svg class="i"><use href="#ic-route"/></svg>ABA routing (wire / ACH)</span>
+          <span><svg class="i"><use href="#ic-globe"/></svg>RBC SWIFT BIC</span>
+          <span><svg class="i"><use href="#ic-doc"/></svg>Funding instructions</span>
+          <span><svg class="i"><use href="#ic-cal"/></svg>MT reporting schedule</span>
+        </div>
+        <span class="go">Fund &amp; transact <svg class="i"><use href="#ic-arrow"/></svg></span>
+        <div class="fine">Confidential · For discussion purposes<br/>Timings illustrative; subject to complete package &amp; KYC clearance</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Scale the fixed 1920×1080 slide to fit any viewport while preserving 16:9.
+    (function () {
+      const slide = document.getElementById('slide');
+      function fit() {
+        const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        slide.style.transform = 'scale(' + s + ')';
+      }
+      window.addEventListener('resize', fit);
+      fit();
+    })();
+  </script>
+</body>
+</html>
