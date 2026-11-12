@@ -1,6 +1,6 @@
 // src/scripts.ts
 // Modular, typed, and safe implementation of the site UI behavior.
-// This file is intended to be bundled for the browser (esbuild recommended).
+// Bundled for the browser using esbuild.
 
 type Maybe<T> = T | null;
 
@@ -68,7 +68,7 @@ function isStorageAvailable(): boolean {
   }
 }
 
-function getSavedTheme(defaultTheme = "light"): string {
+function getSavedTheme(defaultTheme = "dark"): string {
   try {
     if (!isStorageAvailable()) return defaultTheme;
     return localStorage.getItem("theme") || defaultTheme;
@@ -86,6 +86,25 @@ function saveTheme(theme: string): void {
   }
 }
 
+function updateThemeIcon(
+  theme: string,
+  button: Maybe<HTMLButtonElement>,
+): void {
+  if (!button) return;
+  const icon = button.querySelector("i");
+  if (!icon) return;
+  icon.classList.remove("fa-moon", "fa-sun");
+  if (theme === "dark") {
+    icon.classList.add("fa-sun");
+    button.setAttribute("aria-label", "Switch to light theme");
+    button.setAttribute("title", "Switch to light theme");
+  } else {
+    icon.classList.add("fa-moon");
+    button.setAttribute("aria-label", "Switch to dark theme");
+    button.setAttribute("title", "Switch to dark theme");
+  }
+}
+
 function initUI(): void {
   const menuToggle = safe<HTMLButtonElement>("#menuToggle");
   const sidebarClose = safe<HTMLButtonElement>("#sidebarClose");
@@ -98,7 +117,6 @@ function initUI(): void {
     if (!sidebar) return;
     sidebar.classList.add("active");
     if (sidebarOverlay) sidebarOverlay.classList.add("active");
-    // Prevent body scroll when sidebar is active
     document.body.style.overflow = "hidden";
   }
 
@@ -108,11 +126,11 @@ function initUI(): void {
     if (sidebarOverlay) sidebarOverlay.classList.remove("active");
     document.body.style.overflow = "auto";
   }
+
   if (menuToggle) {
     menuToggle.addEventListener(
       "click",
       (ev: Event) => {
-        // prevent the document click handler from immediately closing the sidebar
         ev.stopPropagation();
         if (!sidebar) return;
         if (sidebar.classList.contains("active")) closeSidebar();
@@ -121,7 +139,7 @@ function initUI(): void {
       { passive: true },
     );
   }
-  // Close sidebar when clicking anywhere outside it
+
   document.addEventListener(
     "click",
     (ev: Event) => {
@@ -132,7 +150,6 @@ function initUI(): void {
         if (!target) return;
         if (sidebar.contains(target)) return;
         if (menuToggle && menuToggle.contains(target)) return;
-        // click was outside sidebar/menu, close it
         closeSidebar();
       } catch (e) {
         // ignore
@@ -140,12 +157,12 @@ function initUI(): void {
     },
     { passive: true },
   );
+
   if (sidebarClose)
     sidebarClose.addEventListener("click", closeSidebar, { passive: true });
   if (sidebarOverlay)
     sidebarOverlay.addEventListener("click", closeSidebar, { passive: true });
 
-  // Close sidebar when clicking on a link inside it
   const sidebarLinks = safeAll<HTMLAnchorElement>(".sidebar-links a");
   if (sidebarLinks && sidebarLinks.length) {
     sidebarLinks.forEach((link) =>
@@ -153,8 +170,8 @@ function initUI(): void {
     );
   }
 
-  // Theme toggle
-  const savedTheme = getSavedTheme("light");
+  // Theme toggle (dark by default)
+  const savedTheme = getSavedTheme("dark");
   htmlElement.setAttribute("data-theme", savedTheme);
   updateThemeIcon(savedTheme, themeToggle);
 
@@ -162,7 +179,7 @@ function initUI(): void {
     themeToggle.addEventListener(
       "click",
       () => {
-        const current = htmlElement.getAttribute("data-theme") || "light";
+        const current = htmlElement.getAttribute("data-theme") || "dark";
         const next = current === "light" ? "dark" : "light";
         htmlElement.setAttribute("data-theme", next);
         saveTheme(next);
@@ -172,8 +189,18 @@ function initUI(): void {
     );
   }
 
-  // Initialize carousel if we are on index.html
-  initCompetencyCarousel();
+  // Dynamic Year in Footer
+  const yearEls = safeAll(".js-year");
+  const currentYear = new Date().getFullYear().toString();
+  yearEls.forEach((el) => {
+    el.textContent = currentYear;
+  });
+
+  // Scroll Progress & Navbar Scrolled State
+  initScrollHeader();
+
+  // Animated Numbers Counter
+  initStatsCounter();
 
   // Apply configuration from config.json
   applyConfiguration();
@@ -181,16 +208,111 @@ function initUI(): void {
   // Initialize modals
   initModals();
 
-  // Initialize videos if we are on videos.html
+  // Initialize videos if on videos.html
   initVideosPage();
 
-  // Initialize articles if we are on articles.html
+  // Initialize articles if on articles.html
   initArticlesPage();
 
   // Initialize Futuristic Canvas, 3D Tilt, and Scroll Reveal
   initHeroCanvas();
   initScrollReveal();
   init3DTilt();
+}
+
+/**
+ * Scroll Progress Bar and Sticky Header Elevation
+ */
+function initScrollHeader(): void {
+  const progressBar = safe<HTMLElement>("#scrollProgress");
+  const navbar = safe<HTMLElement>(".navbar");
+
+  let ticking = false;
+
+  function update() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    if (progressBar && docHeight > 0) {
+      const progress = Math.min(Math.max(scrollY / docHeight, 0), 1);
+      progressBar.style.transform = `scaleX(${progress})`;
+    }
+
+    if (navbar) {
+      if (scrollY > 20) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true },
+  );
+
+  update();
+}
+
+/**
+ * Animated Number Counter for Stats Strip
+ */
+function initStatsCounter(): void {
+  const statNumbers = safeAll<HTMLElement>("[data-count]");
+  if (!statNumbers.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const target = parseInt(el.dataset.count || "0", 10);
+          if (target > 0) {
+            animateCount(el, target);
+          }
+          obs.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.3 },
+  );
+
+  statNumbers.forEach((el) => observer.observe(el));
+}
+
+function animateCount(element: HTMLElement, target: number): void {
+  const duration = 1200; // ms
+  const start = 0;
+  const startTime = performance.now();
+
+  function easeOutCubic(t: number): number {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function frame(now: number) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const current = Math.floor(start + (target - start) * easeOutCubic(progress));
+    element.textContent = current.toString();
+
+    if (progress < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      element.textContent = target.toString();
+    }
+  }
+
+  requestAnimationFrame(frame);
 }
 
 async function initVideosPage() {
@@ -202,16 +324,20 @@ async function initVideosPage() {
     if (!response.ok) throw new Error("Failed to fetch videos");
 
     const videos: VideoData[] = await response.json();
-    const gridItems: GridItem[] = videos.map(v => ({
+    const gridItems: GridItem[] = videos.map((v) => ({
       title: v.title,
       description: v.description,
       date: v.date,
       thumbnail: v.thumbnail,
       topic: v.topic,
       url: v.youtubeUrl,
-      showPlayIcon: true
+      showPlayIcon: true,
     }));
-    renderGrid(gridItems, videosContainer, { gridClass: 'grid-layout video-grid', cardClass: 'content-card', groupByTopic: true });
+    renderGrid(gridItems, videosContainer, {
+      gridClass: "grid-layout video-grid",
+      cardClass: "content-card",
+      groupByTopic: true,
+    });
   } catch (error) {
     console.error("Error loading videos:", error);
     videosContainer.innerHTML =
@@ -219,16 +345,23 @@ async function initVideosPage() {
   }
 }
 
-function renderGrid(items: GridItem[], container: HTMLElement, options: { gridClass: string, cardClass: string, groupByTopic?: boolean }) {
+function renderGrid(
+  items: GridItem[],
+  container: HTMLElement,
+  options: { gridClass: string; cardClass: string; groupByTopic?: boolean },
+) {
   container.innerHTML = "";
 
   if (options.groupByTopic) {
-    const grouped = items.reduce((acc, item) => {
-      const topic = item.topic || "Other";
-      if (!acc[topic]) acc[topic] = [];
-      acc[topic].push(item);
-      return acc;
-    }, {} as Record<string, GridItem[]>);
+    const grouped = items.reduce(
+      (acc, item) => {
+        const topic = item.topic || "Other";
+        if (!acc[topic]) acc[topic] = [];
+        acc[topic].push(item);
+        return acc;
+      },
+      {} as Record<string, GridItem[]>,
+    );
 
     Object.entries(grouped).forEach(([topic, topicItems]) => {
       const section = document.createElement("div");
@@ -242,18 +375,21 @@ function renderGrid(items: GridItem[], container: HTMLElement, options: { gridCl
       const grid = document.createElement("div");
       grid.className = options.gridClass;
 
-      topicItems.forEach(item => grid.appendChild(createCard(item, options.cardClass)));
+      topicItems.forEach((item) =>
+        grid.appendChild(createCard(item, options.cardClass)),
+      );
       section.appendChild(grid);
       container.appendChild(section);
     });
   } else {
     const grid = document.createElement("div");
     grid.className = options.gridClass;
-    items.forEach(item => grid.appendChild(createCard(item, options.cardClass)));
+    items.forEach((item) =>
+      grid.appendChild(createCard(item, options.cardClass)),
+    );
     container.appendChild(grid);
   }
 
-  // Re-bind 3D tilt and scroll reveal observers for newly generated elements
   init3DTilt();
   initScrollReveal();
 }
@@ -264,13 +400,15 @@ function createCard(item: GridItem, cardClass: string): HTMLElement {
   card.setAttribute("role", "button");
   card.setAttribute("tabindex", "0");
 
-  const playOverlay = item.showPlayIcon ? `
+  const playOverlay = item.showPlayIcon
+    ? `
     <div class="play-overlay">
       <div class="play-icon">
         <i class="fas fa-play"></i>
       </div>
     </div>
-  ` : '';
+  `
+    : "";
 
   card.innerHTML = `
     <div class="card-thumbnail">
@@ -298,7 +436,7 @@ function createCard(item: GridItem, cardClass: string): HTMLElement {
 
 const EMBEDDED_CONFIG: ConfigData = {
   showVideos: false,
-  showArticles: true
+  showArticles: true,
 };
 
 async function applyConfiguration() {
@@ -310,7 +448,7 @@ async function applyConfiguration() {
       config = { ...config, ...fetched };
     }
   } catch (error) {
-    // Use embedded fallback if fetch fails
+    // fallback
   }
 
   if (config.showVideos === false) {
@@ -341,15 +479,18 @@ async function initArticlesPage() {
     if (!response.ok) throw new Error("Failed to fetch articles");
 
     const articles: ArticleData[] = await response.json();
-    const gridItems: GridItem[] = articles.map(a => ({
+    const gridItems: GridItem[] = articles.map((a) => ({
       title: a.title,
       description: a.description,
       date: a.date,
       thumbnail: a.thumbnail,
       topic: a.topic,
-      url: a.link
+      url: a.link,
     }));
-    renderGrid(gridItems, articlesContainer, { gridClass: 'grid-layout articles-grid', cardClass: 'content-card' });
+    renderGrid(gridItems, articlesContainer, {
+      gridClass: "grid-layout articles-grid",
+      cardClass: "content-card",
+    });
   } catch (error) {
     console.error("Error loading articles:", error);
     articlesContainer.innerHTML =
@@ -357,249 +498,253 @@ async function initArticlesPage() {
   }
 }
 
-function updateThemeIcon(
-  theme: string,
-  button: Maybe<HTMLButtonElement>,
-): void {
-  if (!button) return;
-  const icon = button.querySelector("i");
-  if (!icon) return;
-  icon.classList.remove("fa-moon", "fa-sun");
-  if (theme === "dark") icon.classList.add("fa-sun");
-  else icon.classList.add("fa-moon");
-}
-
-// ========================================
-// Competency Carousel & Modal Functionality
-// ========================================
-
-async function initModals() {
+// Embedded Site Data for fallback / fast offline rendering
 const EMBEDDED_SITE_DATA: CompetencyMap = {
   "product-strategy": {
-    "icon": "fa-chess",
-    "title": "Product Strategy",
-    "description": "Defining vision, roadmaps, and go-to-market strategies that capture market opportunities and drive sustainable growth.",
-    "capabilities": [
-      "Market research and competitive analysis",
-      "Product vision and roadmap development",
+    icon: "fa-chess",
+    title: "Product Strategy",
+    description:
+      "Defining vision, roadmaps, and go-to-market strategies that capture market opportunities and drive sustainable growth in financial services.",
+    capabilities: [
+      "Market research and competitive analysis in capital markets",
+      "Product vision, OKRs and multi-year roadmap development",
       "Prioritization frameworks (RICE, MoSCoW, Value vs. Effort)",
-      "Go-to-market strategy and launch planning",
-      "Stakeholder alignment and executive presentations"
-    ]
+      "Go-to-market strategy, commercialization and launch planning",
+      "Executive stakeholder alignment and business case modeling",
+    ],
   },
-  "leadership": {
-    "icon": "fa-users",
-    "title": "Cross-functional Leadership",
-    "description": "Building and empowering high-performance teams across engineering, design, and business functions to deliver exceptional outcomes.",
-    "capabilities": [
-      "Team building and mentorship",
-      "Agile/Scrum methodology implementation",
-      "Stakeholder management and communication",
-      "Conflict resolution and decision-making",
-      "Fostering innovation and continuous improvement"
-    ]
+  leadership: {
+    icon: "fa-users",
+    title: "Cross-functional Leadership",
+    description:
+      "Building and empowering high-performance teams across engineering, design, architecture, and business operations to deliver enterprise outcomes.",
+    capabilities: [
+      "High-performance team mentorship and talent development",
+      "Agile & Scrum transformation at institutional scale",
+      "Cross-functional stakeholder management across front, middle and back office",
+      "Clear escalation, risk mitigation and decision-making frameworks",
+      "Fostering psychological safety and engineering excellence",
+    ],
   },
-  "ux": {
-    "icon": "fa-lightbulb",
-    "title": "User Experience",
-    "description": "Championing user-centric design thinking to create intuitive, accessible, and delightful product experiences.",
-    "capabilities": [
-      "User research and persona development",
-      "Journey mapping and experience design",
-      "Usability testing and feedback integration",
-      "Accessibility compliance (WCAG)",
-      "Design system governance and consistency"
-    ]
+  ux: {
+    icon: "fa-lightbulb",
+    title: "User Experience",
+    description:
+      "Championing user-centric design thinking to make complex institutional workflows fast, intuitive, and error-resilient.",
+    capabilities: [
+      "User research, contextual inquiry and persona development",
+      "Institutional customer journey mapping and friction reduction",
+      "Usability testing and rapid prototyping feedback loops",
+      "Accessibility compliance (WCAG standards)",
+      "Design system governance across multiple product squads",
+    ],
   },
-  "business": {
-    "icon": "fa-chart-line",
-    "title": "Business Goals",
-    "description": "Aligning product initiatives with business objectives to drive revenue growth, operational efficiency, and measurable ROI.",
-    "capabilities": [
-      "KPI definition and OKR frameworks",
-      "Revenue optimization and pricing strategy",
-      "Cost-benefit analysis and business cases",
-      "P&L ownership and budget management",
-      "Data-driven decision making and analytics"
-    ]
+  business: {
+    icon: "fa-chart-line",
+    title: "Business Outcomes & ROI",
+    description:
+      "Aligning product initiatives with commercial objectives to drive revenue growth, operational efficiency, and quantifiable ROI.",
+    capabilities: [
+      "Outcome-based KPI definition and OKR alignment",
+      "Revenue optimization, unit economics and business case ownership",
+      "Operational cost-reduction and process digitization",
+      "P&L stewardship and resource prioritization",
+      "Data-driven decision making and platform telemetry",
+    ],
   },
-  "testing": {
-    "icon": "fa-cogs",
-    "title": "Software Testing & Automation",
-    "description": "Establishing robust quality assurance practices and automation frameworks to accelerate delivery while maintaining excellence.",
-    "capabilities": [
-      "Test Strategy and Planning",
-      "Automation Framework Design (Robot Framework, Pytest, Playwright, Python)",
-      "CI/CD Pipeline Integration (Jenkins, GitHub Actions)",
-      "Performance and Load Testing (Locust)",
-      "Quality Metrics Reporting and Defect Management"
-    ]
+  testing: {
+    icon: "fa-gears",
+    title: "Software Testing & Automation",
+    description:
+      "Deep foundation in quality engineering, test automation frameworks, and CI/CD pipelines to ensure enterprise release resilience.",
+    capabilities: [
+      "Enterprise test strategy, risk-based testing, and quality governance",
+      "Automation framework architecture (Python, Playwright, Pytest, Robot Framework)",
+      "CI/CD pipeline integration (Jenkins, GitHub Actions)",
+      "Performance, stress, and load testing (Locust)",
+      "Shift-left quality practices, BDD and automated compliance gates",
+    ],
   },
-  "technical": {
-    "icon": "fa-microchip",
-    "title": "Technical & Domain Knowledge",
-    "description": "Bridging the gap between complex technical systems and business outcomes with deep FinTech domain expertise.",
-    "capabilities": [
-      "API Design and Integration Patterns",
-      "Database and Data Modeling Concepts",
-      "Technical Debt Management and Modernization"
-    ]
+  technical: {
+    icon: "fa-microchip",
+    title: "Technical & Domain Knowledge",
+    description:
+      "Bridging the gap between complex financial architecture and business outcomes with deep technical empathy and FinTech expertise.",
+    capabilities: [
+      "API design, event-driven messaging (Kafka, MQ) and integration patterns",
+      "Relational & distributed data modeling for financial instruments",
+      "Technical debt management, refactoring roadmaps, and modernization",
+      "Cloud-native design principles and microservices patterns",
+    ],
   },
   "cash-management": {
-    "icon": "fa-money-bill-wave",
-    "title": "Cash Management",
-    "description": "Expertise in managing and optimizing organizational liquidity, treasury operations, and transaction flows.",
-    "capabilities": [
-      "Treasury Management Solutions",
-      "Liquidity Forecasting and Optimization",
-      "Cash Flow Analysis and Reporting",
-      "Bank Relationship Management"
-    ]
+    icon: "fa-money-bill-wave",
+    title: "Cash Management",
+    description:
+      "Expertise in managing and optimizing organizational liquidity, treasury operations, and transaction flows.",
+    capabilities: [
+      "Treasury Management Solutions & corporate cash forecasting",
+      "Liquidity optimization and automated sweeping mechanisms",
+      "Cash flow analytics, position reporting and reconciliation",
+      "Virtual Accounts & multi-bank relationship management",
+    ],
   },
   "core-banking": {
-    "icon": "fa-university",
-    "title": "Core Banking Products",
-    "description": "Deep understanding of fundamental banking systems, deposit accounts, and term assets.",
-    "capabilities": [
-      "DDA (Demand Deposit Accounts) Management",
-      "TDA (Term Deposit Accounts) and Savings Products",
-      "Interest Calculation and Posting Engines",
-      "Regulatory Reporting for Retail Banking"
-    ]
+    icon: "fa-university",
+    title: "Core Banking Products",
+    description:
+      "Deep understanding of fundamental deposit architectures, DDA/TDA platforms, and ledger accounting engines.",
+    capabilities: [
+      "Demand Deposit Accounts (DDA) lifecycle and architecture",
+      "Term Deposit Accounts (TDA), sweep accounts and interest engines",
+      "Posting, settlement, and end-of-day batch processing",
+      "Regulatory reporting, compliance and AML integration",
+    ],
   },
-  "payments": {
-    "icon": "fa-credit-card",
-    "title": "Payments",
-    "description": "Specialized in the architecture and delivery of modern transaction processing systems.",
-    "capabilities": [
-      "Cross-border and Domestic Payment Rails",
-      "Tokenization and Secure Payment Processing",
-      "ISO 20022 Messaging Standards",
-      "Fraud Detection and Mitigation"
-    ]
+  payments: {
+    icon: "fa-credit-card",
+    title: "Payments & Transaction Processing",
+    description:
+      "Specialized in the architecture, rails, and modernization of high-throughput payment processing systems.",
+    capabilities: [
+      "Domestic & cross-border payment rails (Fedwire, CHIPS, SWIFT, SEPA)",
+      "ISO 20022 messaging standards migration (MT to MX transition)",
+      "Tokenization, encryption, and secure transaction workflows",
+      "Real-time fraud screening, sanctions filtering, and exception processing",
+    ],
   },
   "collateral-management": {
-    "icon": "fa-balance-scale",
-    "title": "Collateral Management",
-    "description": "Optimizing asset utilization and ensuring compliance in trading and credit operations.",
-    "capabilities": [
-      "Asset Optimization and Substitution",
-      "Margin Call Automation and Management",
-      "Regulatory Compliance (EMIR, Dodd-Frank)",
-      "Risk Mitigation and Inventory Tracking"
-    ]
+    icon: "fa-balance-scale",
+    title: "Collateral Management",
+    description:
+      "Optimizing asset utilization and ensuring compliance across trading, margin, and credit operations.",
+    capabilities: [
+      "Collateral optimization, allocation and substitution engines",
+      "Margin call automation, dispute management and tri-party workflows",
+      "Regulatory compliance (BCBS-IOSCO, EMIR, Dodd-Frank)",
+      "Inventory tracking, rehypothecation and valuation feeds",
+    ],
   },
   "counterparty-risk": {
-    "icon": "fa-user-shield",
-    "title": "Counterparty Risk",
-    "description": "Managing trading credit risk and ensuring organizational stability in financial markets.",
-    "capabilities": [
-      "Exposure Monitoring and Limit Management",
-      "Credit Risk Scoring and Assessment",
-      "Default Scenario Modeling",
-      "Reporting and Stakeholder Dashboards"
-    ]
+    icon: "fa-user-shield",
+    title: "Counterparty Risk",
+    description:
+      "Managing trading credit risk, exposure limits, and capital adequacy in volatile financial markets.",
+    capabilities: [
+      "Real-time exposure monitoring and limit management systems",
+      "Credit risk scoring, rating models and risk mitigation",
+      "Default simulation and stress-testing scenario modeling",
+      "Executive risk dashboards and regulatory reporting",
+    ],
   },
   "securities-data": {
-    "icon": "fa-database",
-    "title": "Securities Data",
-    "description": "Mastery of reference data management for complex financial instruments.",
-    "capabilities": [
-      "Instrument Master Data Management",
-      "Pricing Data Feeds and Integration",
-      "Corporate Actions Processing",
-      "Data Quality and Governance"
-    ]
+    icon: "fa-database",
+    title: "Securities Data & Reference Data",
+    description:
+      "Mastery of reference data management for complex financial instruments, corporate actions, and pricing feeds.",
+    capabilities: [
+      "Instrument master data management (ISIN, CUSIP, SEDOL, FIGI)",
+      "Market data feeds integration (Bloomberg, Refinitiv) and golden copy engines",
+      "Corporate actions processing and distribution workflows",
+      "Data lineage, governance, and audit compliance",
+    ],
   },
   "software-dev": {
-    "icon": "fa-code",
-    "title": "Software Development",
-    "description": "Technical foundation built on engineering excellence and robust architectural principles.",
-    "capabilities": [
-      "Full-Stack Development Experience",
-      "System Architecture and Design",
-      "Cloud-Native Application Development",
-      "DevOps Mindset and Tooling"
-    ]
+    icon: "fa-code",
+    title: "Software Development",
+    description:
+      "Engineering foundation built on full-stack principles, clean code, and robust distributed systems architecture.",
+    capabilities: [
+      "Full-stack software development experience across the stack",
+      "Modular system architecture and enterprise design patterns",
+      "Cloud-native applications and service-oriented architectures",
+      "Engineering empathy that earns trust from development squads",
+    ],
   },
   "software-testing": {
-    "icon": "fa-vial",
-    "title": "Software Testing",
-    "description": "Championing Quality Engineering to ensure reliable and high-performance product delivery.",
-    "capabilities": [
-      "Automated Testing Frameworks",
-      "Functionality, Acceptance, and Regression Testing",
-      "Quality Metrics and Analytics",
-      "Shift-Left Test Strategies - Inspections, Reviews, and BDD"
-    ]
+    icon: "fa-vial",
+    title: "Software Testing & QA",
+    description:
+      "Championing Quality Engineering to ensure resilient, bug-free, and high-performance financial delivery.",
+    capabilities: [
+      "Enterprise test automation frameworks and regression suites",
+      "End-to-end integration, performance and latency testing",
+      "Quality metrics, defect density reduction and release readiness",
+      "Shift-left test strategies, BDD and automated regression gates",
+    ],
   },
   "scrum-master": {
-    "icon": "fa-users-cog",
-    "title": "Scrum Master",
-    "description": "Facilitating Agile delivery and empowering teams to reach peak performance.",
-    "capabilities": [
-      "Agile Ceremony Facilitation",
-      "Team Coaching and Mentorship",
-      "Roadblock Removal and Flow Optimization",
-      "Servant Leadership"
-    ]
+    icon: "fa-users-cog",
+    title: "Scrum Master & Agile Leadership",
+    description:
+      "Facilitating Agile delivery, eliminating impediments, and empowering squads to reach peak velocity and predictability.",
+    capabilities: [
+      "Agile ceremonies facilitation (Sprint Planning, Retrospectives, Dailies)",
+      "Continuous velocity tracking, burn-down analysis and flow optimization",
+      "Roadblock removal, cross-squad dependency coordination and servant leadership",
+      "Coaching teams through organizational Agile transformations",
+    ],
   },
   "product-management": {
-    "icon": "fa-briefcase",
-    "title": "Product Management",
-    "description": "Strategic leadership in product discovery, delivery, and lifecycle management.",
-    "capabilities": [
-      "Strategic Vision and Execution",
-      "Customer Discovery and Insights",
-      "Prioritization and Stakeholder Alignment",
-      "Outcome-Driven Product Roadmaps"
-    ]
+    icon: "fa-compass",
+    title: "Product Management Leadership",
+    description:
+      "Strategic product leadership from customer discovery and market definition through delivery and continuous scaling.",
+    capabilities: [
+      "Strategic vision, product thesis and outcome-driven roadmaps",
+      "Customer discovery, institutional interview synthesis and pain-point mapping",
+      "Prioritization, stakeholder consensus and executive governance",
+      "Lifecycle management from zero-to-one through multi-year scale",
+    ],
   },
   "rbc-director": {
-    "icon": "fa-building",
-    "title": "Director, Product Management",
-    "description": "Leading product strategy and delivery at RBC Capital Markets, focusing on process optimization and enterprise solutions.",
-    "capabilities": [
-      "Product Vision for Capital Markets Solutions",
-      "Process Optimization and Digitization",
-      "Cross-Functional Team Leadership",
-      "Executive Stakeholder Management"
-    ]
+    icon: "fa-building",
+    title: "Director, Product Management — RBC Capital Markets",
+    description:
+      "Leading product strategy and delivery at RBC Capital Markets, with an emphasis on process optimization, digitization, and enterprise platform excellence.",
+    capabilities: [
+      "Product Vision for Capital Markets and enterprise optimization solutions",
+      "Process digitization and operational throughput acceleration",
+      "Cross-functional leadership across engineering, operations, and compliance",
+      "Executive stakeholder alignment and strategic program roadmapping",
+    ],
   },
   "citi-vp": {
-    "icon": "fa-landmark",
-    "title": "Vice President",
-    "description": "Led key product initiatives at Citi, focusing on transaction processing and treasury solutions.",
-    "capabilities": [
-      "Technical Delivery Oversight for NAM (US)",
-      "Platform Modernization",
-      "Regulatory Compliance Technical Delivery",
-      "Team Performance Management",
-      "Technical Demands and Release Management"
-    ]
+    icon: "fa-landmark",
+    title: "Vice President — Citi",
+    description:
+      "Led high-impact product and technical delivery initiatives at Citi, focusing on transaction processing and treasury solutions across North America.",
+    capabilities: [
+      "Technical delivery oversight for North America (NAM) platforms",
+      "Platform modernization from legacy frameworks to modern architectures",
+      "Regulatory compliance technical delivery and audit assurance",
+      "Cross-squad performance management and release orchestration",
+    ],
   },
   "td-practice-lead": {
-    "icon": "fa-check-circle",
-    "title": "Practice Lead I",
-    "description": "Championed Quality Engineering and practice standards at TD, driving excellence across multiple product lines.",
-    "capabilities": [
-      "Quality Engineering strategy and governance",
-      "Automation COE leadership",
-      "Strategic planning and resource optimization",
-      "Mentorship of practice members"
-    ]
+    icon: "fa-check-circle",
+    title: "Practice Lead I — TD",
+    description:
+      "Championed Quality Engineering strategy and practice standards at TD, driving automation across multiple business lines and squads.",
+    capabilities: [
+      "Quality Engineering strategy and governance across enterprise squads",
+      "Automation Center of Excellence (CoE) leadership and tooling standards",
+      "Resource optimization, technical hiring, and skill upleveling",
+      "Mentorship and community of practice leadership",
+    ],
   },
   "cognizant-sqe": {
-    "icon": "fa-shield-halved",
-    "title": "Senior Quality Engineer",
-    "description": "Delivered high-quality software solutions for global financial clients at Cognizant.",
-    "capabilities": [
-      "Lead QA Engineer for Complex Fintech Projects",
-      "Automation Framework Architecture",
-      "Functionalities and Acceptance Testing",
-      "Progress Reporting and Stakeholder Communication"
-    ]
-  }
+    icon: "fa-shield-halved",
+    title: "Senior Quality Engineer — Cognizant",
+    description:
+      "Delivered mission-critical software solutions and automation frameworks for premier global financial institutions.",
+    capabilities: [
+      "Lead QA Engineer for complex FinTech integration programs",
+      "Automation framework architecture across UI and backend APIs",
+      "Functional, regression and user acceptance testing ownership",
+      "Executive progress reporting and cross-geography collaboration",
+    ],
+  },
 };
 
 async function initModals() {
@@ -614,22 +759,24 @@ async function initModals() {
       siteData = { ...siteData, ...fetched };
     }
   } catch (error) {
-    // Use embedded fallback if fetch fails on file:// or CORS block
+    // fallback
   }
 
-  const triggers = document.querySelectorAll("[data-modal-id], [data-competency]");
-  
+  const triggers = document.querySelectorAll(
+    "[data-modal-id], [data-competency]",
+  );
+
   triggers.forEach((trigger) => {
     const triggerEl = trigger as HTMLElement;
     const modalId = triggerEl.dataset.modalId || triggerEl.dataset.competency;
-    
+
     if (!modalId) return;
 
     const openHandler = (ev: Event) => {
-      ev.stopPropagation(); // Prevent document click handler from firing
+      ev.stopPropagation();
       openModal(modalId, siteData, modal);
     };
-    
+
     triggerEl.addEventListener("click", openHandler);
     triggerEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
@@ -638,7 +785,6 @@ async function initModals() {
       }
     });
 
-    // Ensure it's interactive
     if (!triggerEl.getAttribute("tabindex")) {
       triggerEl.setAttribute("tabindex", "0");
     }
@@ -647,7 +793,6 @@ async function initModals() {
     }
   });
 
-  // Close logic
   const closeBtn = modal.querySelector(".modal-close");
   const overlay = modal.querySelector(".modal-overlay");
 
@@ -691,100 +836,8 @@ function openModal(id: string, dataMap: CompetencyMap, modal: HTMLElement) {
 
   const closeBtn = modal.querySelector<HTMLButtonElement>(".modal-close");
   if (closeBtn) {
-    // preventScroll helps in some browsers to avoid jumping to the element
     closeBtn.focus({ preventScroll: true });
   }
-}
-
-async function initCompetencyCarousel() {
-  const carousel = safe(".competency-carousel");
-  const prevBtn = safe<HTMLButtonElement>(".carousel-prev");
-  const nextBtn = safe<HTMLButtonElement>(".carousel-next");
-  const indicatorsContainer = safe(".carousel-indicators");
-  const cards = safeAll<HTMLElement>(".competency-card");
-
-  if (!carousel || !cards.length) return;
-
-  // Create indicators
-  cards.forEach((_, index) => {
-    const indicator = document.createElement("button");
-    indicator.type = "button";
-    indicator.className = "indicator" + (index === 0 ? " active" : "");
-    indicator.setAttribute("aria-label", "Go to slide " + (index + 1));
-    indicator.addEventListener("click", () => scrollToCard(index));
-    if (indicatorsContainer) {
-      indicatorsContainer.appendChild(indicator);
-    }
-  });
-
-  const indicators = indicatorsContainer
-    ? indicatorsContainer.querySelectorAll(".indicator")
-    : [];
-
-  // Scroll to specific card
-  function scrollToCard(index: number) {
-    const card = cards[index];
-    if (card && carousel) {
-      const cardLeft = card.offsetLeft;
-      const carouselWidth = carousel.offsetWidth;
-      const cardWidth = card.offsetWidth;
-      carousel.scrollTo({
-        left: cardLeft - carouselWidth / 2 + cardWidth / 2,
-        behavior: "smooth",
-      });
-    }
-  }
-
-  // Update active indicator based on scroll
-  function updateIndicators() {
-    if (!carousel) return;
-    const scrollLeft = carousel.scrollLeft;
-    const carouselWidth = carousel.offsetWidth;
-
-    let activeIndex = 0;
-    let minDistance = Infinity;
-
-    cards.forEach((card, index) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const carouselCenter = scrollLeft + carouselWidth / 2;
-      const distance = Math.abs(cardCenter - carouselCenter);
-
-      if (distance < minDistance) {
-        minDistance = distance;
-        activeIndex = index;
-      }
-    });
-
-    indicators.forEach((ind, i) => {
-      ind.classList.toggle("active", i === activeIndex);
-    });
-
-    // Update navigation button states
-    if (prevBtn) {
-      prevBtn.disabled = scrollLeft <= 10;
-    }
-    if (nextBtn) {
-      nextBtn.disabled =
-        scrollLeft >= carousel.scrollWidth - carousel.offsetWidth - 10;
-    }
-  }
-
-  // Navigation
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      carousel.scrollBy({ left: -300, behavior: "smooth" });
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      carousel.scrollBy({ left: 300, behavior: "smooth" });
-    });
-  }
-
-  // Update indicators on scroll
-  carousel.addEventListener("scroll", updateIndicators, { passive: true });
-  updateIndicators();
 }
 
 /**
@@ -802,10 +855,14 @@ function initHeroCanvas(): void {
   let width = (canvas.width = parent.offsetWidth || window.innerWidth);
   let height = (canvas.height = parent.offsetHeight || window.innerHeight);
 
-  window.addEventListener("resize", () => {
-    width = canvas.width = parent.offsetWidth || window.innerWidth;
-    height = canvas.height = parent.offsetHeight || window.innerHeight;
-  }, { passive: true });
+  window.addEventListener(
+    "resize",
+    () => {
+      width = canvas.width = parent.offsetWidth || window.innerWidth;
+      height = canvas.height = parent.offsetHeight || window.innerHeight;
+    },
+    { passive: true },
+  );
 
   const numParticles = Math.min(Math.floor((width * height) / 11000), 75);
   const particles: Array<{
@@ -817,27 +874,31 @@ function initHeroCanvas(): void {
     color: string;
   }> = [];
 
-  const colors = ["#00f2fe", "#4facfe", "#8b5cf6", "#38bdf8"];
+  const colors = ["#38e1ff", "#4f8cff", "#8b7bff", "#22d3ee"];
 
   for (let i = 0; i < numParticles; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.7,
-      vy: (Math.random() - 0.5) * 0.7,
-      radius: Math.random() * 2 + 1,
-      color: colors[Math.floor(Math.random() * colors.length)]
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      radius: Math.random() * 1.8 + 0.8,
+      color: colors[Math.floor(Math.random() * colors.length)],
     });
   }
 
   let mouseX = width / 2;
   let mouseY = height / 2;
 
-  window.addEventListener("mousemove", (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
-  }, { passive: true });
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    },
+    { passive: true },
+  );
 
   function animate() {
     if (!ctx) return;
@@ -850,11 +911,11 @@ function initHeroCanvas(): void {
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 125) {
+        if (dist < 120) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0, 242, 254, ${0.22 * (1 - dist / 125)})`;
+          ctx.strokeStyle = `rgba(56, 225, 255, ${0.22 * (1 - dist / 120)})`;
           ctx.lineWidth = 0.6;
           ctx.stroke();
         }
@@ -869,19 +930,19 @@ function initHeroCanvas(): void {
       if (p.x < 0 || p.x > width) p.vx *= -1;
       if (p.y < 0 || p.y > height) p.vy *= -1;
 
-      // Mouse attraction / repulsion
+      // Subtle mouse reaction
       const dx = mouseX - p.x;
       const dy = mouseY - p.y;
       const mouseDist = Math.sqrt(dx * dx + dy * dy);
-      if (mouseDist < 120) {
-        p.x -= (dx / mouseDist) * 0.4;
-        p.y -= (dy / mouseDist) * 0.4;
+      if (mouseDist < 110) {
+        p.x -= (dx / mouseDist) * 0.35;
+        p.y -= (dy / mouseDist) * 0.35;
       }
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 6;
       ctx.shadowColor = p.color;
       ctx.fill();
       ctx.shadowBlur = 0;
@@ -897,7 +958,9 @@ function initHeroCanvas(): void {
  * Scroll Reveal Animation via IntersectionObserver
  */
 function initScrollReveal(): void {
-  const revealElements = document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale");
+  const revealElements = document.querySelectorAll(
+    ".reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger",
+  );
   if (!revealElements.length) return;
 
   const observer = new IntersectionObserver(
@@ -908,7 +971,7 @@ function initScrollReveal(): void {
         }
       });
     },
-    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
   );
 
   revealElements.forEach((el) => observer.observe(el));
@@ -919,29 +982,39 @@ function initScrollReveal(): void {
  */
 function init3DTilt(): void {
   const tiltCards = document.querySelectorAll<HTMLElement>(
-    ".competency-card, .content-card, .tech-card, .domain-card, .cert-card, .stat-card, .portfolio-card, .timeline-content, .contact-form, .contact-info"
+    ".competency-card, .content-card, .tech-card, .domain-card, .cert-card, .step-card, .stat, .timeline-content, .highlights-card, .contact-form, .contact-info",
   );
 
   tiltCards.forEach((card) => {
-    card.addEventListener("mousemove", (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    card.addEventListener(
+      "mousemove",
+      (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-      card.style.setProperty("--mouse-x", `${x}px`);
-      card.style.setProperty("--mouse-y", `${y}px`);
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -6;
-      const rotateY = ((x - centerX) / centerX) * 6;
+        // Subtle 3D tilt
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-    }, { passive: true });
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+      },
+      { passive: true },
+    );
 
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
-    }, { passive: true });
+    card.addEventListener(
+      "mouseleave",
+      () => {
+        card.style.transform =
+          "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+      },
+      { passive: true },
+    );
   });
 }
 
@@ -952,6 +1025,5 @@ if (document.readyState === "loading") {
     passive: true,
   });
 } else {
-  // DOM already loaded
   initUI();
 }
