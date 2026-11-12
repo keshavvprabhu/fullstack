@@ -864,7 +864,7 @@ function initHeroCanvas(): void {
     { passive: true },
   );
 
-  const numParticles = Math.min(Math.floor((width * height) / 11000), 75);
+  const numParticles = Math.min(Math.floor((width * height) / 14000), 55);
   const particles: Array<{
     x: number;
     y: number;
@@ -874,15 +874,15 @@ function initHeroCanvas(): void {
     color: string;
   }> = [];
 
-  const colors = ["#38e1ff", "#4f8cff", "#8b7bff", "#22d3ee"];
+  const colors = ["#3b82f6", "#60a5fa", "#93c5fd", "#64748b"];
 
   for (let i = 0; i < numParticles; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
-      radius: Math.random() * 1.8 + 0.8,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 1.6 + 0.6,
       color: colors[Math.floor(Math.random() * colors.length)],
     });
   }
@@ -911,12 +911,12 @@ function initHeroCanvas(): void {
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 120) {
+        if (dist < 110) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(56, 225, 255, ${0.22 * (1 - dist / 120)})`;
-          ctx.lineWidth = 0.6;
+          ctx.strokeStyle = `rgba(96, 165, 250, ${0.14 * (1 - dist / 110)})`;
+          ctx.lineWidth = 0.5;
           ctx.stroke();
         }
       }

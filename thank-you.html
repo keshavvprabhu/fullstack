@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You — Keshav Prabhu</title>
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#05070d">
+
+    <!-- Apply saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) { /* default stays dark */ }
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="./assets/KP-Logo.png">
     <link rel="stylesheet" href="./styles.css">
-    <title>Thank You - Keshav Prabhu</title>
 </head>
+
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Sidebar Drawer -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -26,6 +43,7 @@
         <ul class="sidebar-links">
             <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
             <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+            <li><a href="index.html#experience"><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</a></li>
             <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
         </ul>
@@ -34,69 +52,85 @@
     <!-- Overlay for sidebar -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Main navigation">
         <div class="nav-container">
             <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <a href="index.html" class="logo">
-                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu Logo" class="logo-img" loading="lazy">
+                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu Logo" class="logo-img">
                 <span>Keshav Prabhu</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
                 <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+                <li><a href="index.html#experience"><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</a></li>
                 <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
             <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
             </button>
         </div>
     </nav>
 
-    <section class="thank-you-section">
-        <div class="thank-you-content">
+    <main class="thank-you-section">
+        <div class="thank-you-content reveal-scale">
             <div class="thank-you-icon">
-                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-circle-check"></i>
             </div>
-                       <h1>Message Sent Successfully!</h1>
-                       <p>
-                Thank you for reaching out! I've received your message and will get back to you                as soon as possible, typically within 24-48 hours.
+            <h1>Message Received</h1>
+            <p>
+                Thank you for reaching out. I've received your note and will get back to you as soon as possible — typically within 24 to 48 hours.
             </p>
-                       <p>
-                In the meantime, feel free to connect with me on social media or explore more                about my work.
+            <p>
+                In the meantime, feel free to connect with me on LinkedIn or explore my published articles.
             </p>
-                       <div class="button-group">
+
+            <div class="button-group">
                 <a href="index.html" class="btn btn-primary">
                     <i class="fas fa-home"></i> Back to Home
                 </a>
-                <a href="index.html#about" class="btn btn-secondary">
-                    <i class="fas fa-user"></i> Learn More About Me
+                <a href="articles.html" class="btn btn-secondary">
+                    <i class="fas fa-book-open"></i> Read Articles
+                </a>
+                <a href="https://www.linkedin.com/in/keshav-prabhu" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i> Connect on LinkedIn
                 </a>
             </div>
 
             <div class="countdown">
-                <p>Redirecting to home page in <span id="countdown">10</span> seconds...</p>
+                <p>Redirecting to home page in <span id="countdown" class="mono">10</span> seconds...</p>
             </div>
         </div>
-    </section>
+    </main>
 
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Keshav Prabhu. All rights reserved.</p>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="./assets/KP-Logo.png" alt="" loading="lazy">
+                <div>
+                    <strong>Keshav Prabhu</strong>
+                    <span>Product Leadership · FinTech · Capital Markets</span>
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/keshav-prabhu" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/keshavvprabhu" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://medium.com/@keshavvprabhu" target="_blank" rel="noopener noreferrer" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                <a href="contact.html" aria-label="Contact"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-copy">&copy; <span class="js-year">2026</span> Keshav Prabhu. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="./scripts.js"></script>
-       <!-- Auto-redirect after 10 seconds -->
     <script>
-        let timeLeft = 10;
-        const countdownElement = document.getElementById('countdown');
-               const countdown = setInterval(() => {
+        var timeLeft = 10;
+        var countdownElement = document.getElementById('countdown');
+        var countdown = setInterval(function () {
             timeLeft--;
-            countdownElement.textContent = timeLeft;
-            
+            if (countdownElement) countdownElement.textContent = timeLeft;
             if (timeLeft <= 0) {
                 clearInterval(countdown);
                 window.location.href = 'index.html';
@@ -104,4 +138,5 @@
         }, 1000);
     </script>
 </body>
+
 </html>

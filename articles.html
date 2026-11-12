@@ -1,19 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Published Articles &amp; Insights — Keshav Prabhu</title>
+    <meta name="description" content="Thought leadership, FinTech perspectives, payments architectures, and product strategy articles by Keshav Prabhu.">
+    <meta name="author" content="Keshav Prabhu">
+    <meta name="theme-color" content="#05070d">
+    <link rel="canonical" href="https://keshavprabhu.github.io/fullstack/articles.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Published Articles &amp; Insights — Keshav Prabhu">
+    <meta property="og:description" content="Explore FinTech perspectives, payments architectures, and product strategy articles.">
+    <meta property="og:url" content="https://keshavprabhu.github.io/fullstack/articles.html">
+    <meta property="og:image" content="https://keshavprabhu.github.io/fullstack/assets/image.jpg">
+
+    <!-- Apply saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) { /* default stays dark */ }
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="./assets/KP-Logo.png">
     <link rel="stylesheet" href="./styles.css">
-    <title>Articles - Keshav Prabhu</title>
 </head>
 
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Sidebar Drawer -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -28,6 +52,7 @@
         <ul class="sidebar-links">
             <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
             <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+            <li><a href="index.html#experience"><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</a></li>
             <li><a href="articles.html" class="active"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
         </ul>
@@ -36,33 +61,35 @@
     <!-- Overlay for sidebar -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Main navigation">
         <div class="nav-container">
             <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <a href="index.html" class="logo">
-                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu Logo" class="logo-img" loading="lazy">
+                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu Logo" class="logo-img">
                 <span>Keshav Prabhu</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
                 <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+                <li><a href="index.html#experience"><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</a></li>
                 <li><a href="articles.html" class="active"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
             <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
             </button>
         </div>
     </nav>
 
     <header class="hero hero-small">
-        <canvas id="heroCanvas"></canvas>
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
         <div class="hero-content">
             <div class="hero-text reveal-scale">
-                <h1>Published Articles & Insights</h1>
-                <p class="tagline">Explore thought leadership, product strategy, and FinTech insights</p>
+                <span class="eyebrow">Publications &amp; Insights</span>
+                <h1>Articles &amp; Thought Leadership</h1>
+                <p class="tagline">Deep dives into payments architecture, cash management, meeting hygiene, and practical product execution.</p>
             </div>
         </div>
     </header>
@@ -71,7 +98,6 @@
         <div class="container">
             <section class="recordings-section page-section reveal">
                 <div id="articlesContainer">
-                    <!-- Dynamic content will be injected here -->
                     <div class="loading-state">
                         <i class="fas fa-spinner fa-spin"></i> Loading articles...
                     </div>
@@ -80,17 +106,34 @@
         </div>
     </main>
 
-    <section class="cta-section page-section about-section reveal">
-        <div class="container">
-            <h2>Ready to Work Together?</h2>
-            <p class="section-intro">Let's discuss how I can help drive your product vision forward.</p>
-            <a href="contact.html" class="btn btn-primary btn-large">Contact Me Today</a>
+    <section class="cta-section">
+        <div class="container reveal-scale">
+            <span class="eyebrow">Let's connect</span>
+            <h2>Have a perspective to share?</h2>
+            <p class="section-intro">I write regularly about financial infrastructure, payments modernization, and product leadership. Let's start a conversation.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary btn-large" id="articlesCtaBtn"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+                <a href="https://medium.com/@keshavvprabhu" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-medium"></i> Follow on Medium</a>
+            </div>
         </div>
     </section>
 
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Keshav Prabhu. All rights reserved.</p>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="./assets/KP-Logo.png" alt="" loading="lazy">
+                <div>
+                    <strong>Keshav Prabhu</strong>
+                    <span>Product Leadership · FinTech · Capital Markets</span>
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/keshav-prabhu" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/keshavvprabhu" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://medium.com/@keshavvprabhu" target="_blank" rel="noopener noreferrer" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                <a href="contact.html" aria-label="Contact"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-copy">&copy; <span class="js-year">2026</span> Keshav Prabhu. All rights reserved.</p>
         </div>
     </footer>
 

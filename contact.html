@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Keshav Prabhu | Product Leadership</title>
+    <meta name="description" content="Get in touch with Keshav Prabhu — Director of Product Management. Available for leadership roles, advisory, speaking, and collaboration in FinTech and capital markets.">
+    <meta name="author" content="Keshav Prabhu">
+    <meta name="theme-color" content="#05070d">
+    <link rel="canonical" href="https://keshavprabhu.github.io/fullstack/contact.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact — Keshav Prabhu">
+    <meta property="og:description" content="Reach out for product leadership conversations, FinTech advisory, or professional networking.">
+    <meta property="og:url" content="https://keshavprabhu.github.io/fullstack/contact.html">
+    <meta property="og:image" content="https://keshavprabhu.github.io/fullstack/assets/image.jpg">
+
+    <!-- Apply saved theme before first paint to avoid a flash -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) { /* default stays dark */ }
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="./assets/KP-Logo.png">
     <link rel="stylesheet" href="./styles.css">
-    <title>Contact - Keshav Prabhu</title>
 </head>
+
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Sidebar Drawer -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -26,6 +52,7 @@
         <ul class="sidebar-links">
             <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
             <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+            <li><a href="index.html#experience"><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</a></li>
             <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
             <li><a href="contact.html" class="active"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
         </ul>
@@ -34,98 +61,143 @@
     <!-- Overlay for sidebar -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Main navigation">
         <div class="nav-container">
             <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <a href="index.html" class="logo">
-                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu Logo" class="logo-img" loading="lazy">
+                <img src="./assets/KP-Logo.png" alt="Keshav Prabhu Logo" class="logo-img">
                 <span>Keshav Prabhu</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
                 <li><a href="index.html#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+                <li><a href="index.html#experience"><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</a></li>
                 <li><a href="articles.html"><i class="fas fa-file-alt" aria-hidden="true"></i> Articles</a></li>
                 <li><a href="contact.html" class="active"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
             <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
             </button>
         </div>
     </nav>
 
     <header class="hero hero-small">
-        <canvas id="heroCanvas"></canvas>
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
         <div class="hero-content">
             <div class="hero-text reveal-scale">
-                <h1>Get In Touch</h1>
-                <p class="tagline">Let's discuss how we can collaborate and create great things together</p>
+                <span class="eyebrow">Connect &amp; Collaborate</span>
+                <h1>Let's Start a Conversation</h1>
+                <p class="tagline">Whether you're exploring product leadership talent, discussing institutional FinTech, or just saying hello — I'd love to connect.</p>
             </div>
         </div>
     </header>
 
-    <section class="contact-section reveal">
+    <main class="contact-section reveal">
         <div class="container">
             <div class="contact-wrapper">
                 <div class="contact-info reveal-left">
-                    <h2>Find me on Social Media</h2>
+                    <h2>Professional Network</h2>
                     <p class="social-intro">
-                        Connect with me to follow my work and professional updates.
+                        The fastest way to reach me is directly via the form or through LinkedIn for professional inquiries.
                     </p>
-                    <div class="social-links social-links-left">
-                        <a href="https://www.linkedin.com/in/keshav-prabhu" class="social-icon" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
+
+                    <ul class="contact-points">
+                        <li>
+                            <i class="fas fa-briefcase" aria-hidden="true"></i>
+                            <div>
+                                <strong style="display:block; font-size: 0.95rem;">Focus Areas</strong>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Product Leadership · Payments · Capital Markets</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock" aria-hidden="true"></i>
+                            <div>
+                                <strong style="display:block; font-size: 0.95rem;">Typical Response</strong>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Within 24 &ndash; 48 hours</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-location-dot" aria-hidden="true"></i>
+                            <div>
+                                <strong style="display:block; font-size: 0.95rem;">Location</strong>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Toronto, Ontario, Canada (EST)</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/keshav-prabhu" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="https://github.com/keshavvprabhu" class="social-icon" aria-label="GitHub">
+                        <a href="https://github.com/keshavvprabhu" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="https://medium.com/@keshavvprabhu" class="social-icon" aria-label="Medium">
+                        <a href="https://medium.com/@keshavvprabhu" class="social-icon" aria-label="Medium" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-medium"></i>
                         </a>
                     </div>
                 </div>
 
                 <form class="contact-form reveal-right" action="https://formspree.io/f/xgovgbyq" method="POST">
-                    <input type="hidden" name="_subject" value="New Contact from Website!">
-                    <input type="text" name="_gotcha" class="hidden" title="Do not fill this field">
-                    <input type="hidden" name="_next" value="https://keshavprabhu.github.io/fullstack/index.html">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
+                    <input type="hidden" name="_subject" value="New Contact from Website Portfolio">
+                    <input type="text" name="_gotcha" class="hidden" title="Do not fill this field" tabindex="-1" autocomplete="off">
+                    <input type="hidden" name="_next" value="https://keshavprabhu.github.io/fullstack/thank-you.html">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" placeholder="Alex Morgan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" placeholder="alex@company.com" required>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone Number (Optional) </label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject">Subject *</label>
-                        <input type="text" id="subject" name="subject" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" placeholder="Product Leadership Opportunity" required>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell me about your product initiative, opportunity, or perspective..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large"><i class="fas fa-paper-plane"></i> Send Message</button>
+
+                    <button type="submit" class="btn btn-primary btn-large" id="submitContactBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
                 </form>
             </div>
         </div>
-    </section>
+    </main>
 
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Keshav Prabhu. All rights reserved.</p>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="./assets/KP-Logo.png" alt="" loading="lazy">
+                <div>
+                    <strong>Keshav Prabhu</strong>
+                    <span>Product Leadership · FinTech · Capital Markets</span>
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/keshav-prabhu" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/keshavvprabhu" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://medium.com/@keshavvprabhu" target="_blank" rel="noopener noreferrer" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                <a href="contact.html" aria-label="Contact"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="footer-copy">&copy; <span class="js-year">2026</span> Keshav Prabhu. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="./scripts.js"></script>
 </body>
+
 </html>
