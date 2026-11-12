@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <defs>
+    <!-- Background subtle gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#0a0f1d" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+
+    <!-- Border highlight gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5" />
+      <stop offset="40%" stop-color="#1e293b" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.3" />
+    </linearGradient>
+
+    <!-- Glyph gradient: white to subtle ice blue -->
+    <linearGradient id="glyphGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="60%" stop-color="#f1f5f9" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+
+    <!-- Accent dot gradient: royal sapphire to ice blue -->
+    <linearGradient id="accentDot" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+
+    <!-- Soft glow filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2563eb" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Container squircle -->
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="1.75" />
+
+  <!-- Monogram "KP" in bold modern geometric style -->
+  <g filter="url(#softGlow)">
+    <!-- Letter K -->
+    <!-- Vertical stem -->
+    <rect x="26" y="36" width="10.5" height="56" rx="2.5" fill="url(#glyphGrad)" />
+    <!-- Upper diagonal -->
+    <path d="M36.5 65.5 L55.5 38 C56.4 36.7 57.9 36 59.5 36 L64 36 C65.4 36 66.1 37.6 65.1 38.8 L44.5 65.5 Z" fill="url(#glyphGrad)" />
+    <!-- Lower diagonal -->
+    <path d="M42.5 62 L63.5 90 C64.4 91.2 63.6 92 62.2 92 L57 92 C55.5 92 54.1 91.3 53.2 90.1 L36.5 67 Z" fill="url(#glyphGrad)" />
+
+    <!-- Letter P -->
+    <!-- Vertical stem -->
+    <rect x="70" y="36" width="10.5" height="56" rx="2.5" fill="url(#glyphGrad)" />
+    <!-- P Bowl (outer) -->
+    <path d="M78 36 L94 36 C102.8 36 109 41.8 109 50.5 C109 59.2 102.8 65 94 65 L78 65 Z" fill="url(#glyphGrad)" />
+    <!-- P Bowl (inner cutout matching background) -->
+    <path d="M80.5 45.5 L93 45.5 C97.5 45.5 100 47.7 100 50.5 C100 53.3 97.5 55.5 93 55.5 L80.5 55.5 Z" fill="url(#bgGrad)" />
+  </g>
+
+  <!-- Modern executive accent point -->
+  <circle cx="106" cy="88" r="3.5" fill="url(#accentDot)" />
+</svg>
